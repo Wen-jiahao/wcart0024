@@ -177,7 +177,8 @@ URL: /administrator/getProfile
 Method：GET  
 
 RequestHeader：
-jcartToken ： eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+jcartToken ：
+ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
 
 ResponseBody:  
 ```json
@@ -213,7 +214,41 @@ Response Field
 | createTimestamp   | Long   | 时间戳    |
 
 ## 0.4 管理员跟新Profile
+URL: /administrator/updateProfile 
+Method：POST  
 
+RequestHeader：
+jcartToken ： 
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+
+RequestBody:  
+```json
+{
+    "password" :"123456",
+    "realName": "华为",
+    "email": "1575448390345。com",
+    "avatarUrl": "http://xxx.com/xxx1.jpg",
+    "status" :1,
+}
+
+```
+
+Request Header  
+
+| 字段     |     类型 |   描述   |
+| :--------------: | :--------:| :------: |
+| jcartToken   | String   | jwt token    |
+
+
+Request Field  
+
+| 字段     |     类型 |   描述   |
+| :--------------: | :--------:| :------: |
+| password   | String   | 密码    |
+| realName   | String   | 真实名    |
+| email   | String   | 邮箱    |
+| avatarUrl   | String   | 头像    |
+| status   | Byte   | 状态    |
 
 
 ## 0.5 管理员获取密码重置密码
@@ -229,7 +264,7 @@ Response Field
 ## 0.8 管理员跟新
 
 ## 1.0 商品列表
-URL：/api/search?page=${page}&size=${size}
+URL：/api/search/product?page=${page}&size=${size}
 
 Method ：GET
 
@@ -286,6 +321,84 @@ Response Field
 | stockQuantity   | int   | 库存    |
 | status   | Byte   |  状态   |
 | total   | int   | 条数    |
+
+
+## 客户查询
+URL：/api/search/customer?page=${page}&size=${size}
+
+Method ：GET
+
+Request Field:
+
+| 参数 | 类型 | 是否必须 | 说明   |
+| ---- | ---- | -------- | ------ |
+| page | int  | 是       | 默认0  |
+| size | int  | 是       | 默认20 |
+
+ResponseBody:  
+
+```json
+{
+"list":[
+    {
+        "customerId":1234,
+        "customerName":"Laex Chen",
+        "email": "22945.com",
+        "status": 1,
+        "createTime" : 123
+​
+​    },
+​    {
+       "customerId":12345,
+        "customerName":"Laex Chen",
+        "email": "22945.com",
+        "status": 1,
+        "createTime" : 123
+​    }
+	
+],
+"total" :10
+}
+
+```
+
+Response Field  
+
+| 字段     |     类型 |   描述   |
+| :--------------: | :--------:| :------: |
+| customerId   | int   |   客户id  |
+| customerName   | String   | 科目名称    |
+| email   | String   | email    |
+| status   |  Byte  | 状态    |
+| createTime   | Long   | 创建时间    |
+
+## 添加客户
+
+URL：/api/add/customer
+Method：POST  
+RequestParam: customer
+
+ResponseBody:  
+```json
+{
+    "realName" :"123456",
+    "mobile": "123",
+    "email": "1575448390345。com",
+    "mobile": "1234",
+}
+
+```
+
+Request Field  
+
+| 字段     |     类型 |   描述   |
+| :--------------: | :--------:| :------: |
+| realName   | String   | 名字    |
+| email  | String  |  邮箱  |
+| mobile  | String  |  客户手机  |
+| encryptedPassword| String  |  加密密码  |
+
+
 
 
 

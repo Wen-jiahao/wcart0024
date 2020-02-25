@@ -1,6 +1,8 @@
 package io.wjh.wcartadministrationback.controller;
 
-import io.wjh.wcartadministrationback.dto.in.AdministratorLoginDTO;
+import io.wjh.wcartadministrationback.dto.in.*;
+import io.wjh.wcartadministrationback.dto.out.AdministratorGetProfileOutDTO;
+import io.wjh.wcartadministrationback.dto.out.PageOutDTO;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +19,7 @@ public class AdministratorController {
     }
 
     @GetMapping("/getProfile")
-    public AdministratorGetProfileOutDTO getProfile(){
+    public AdministratorGetProfileOutDTO getProfile(Integer administartorId){
         return null;
     }
 
@@ -56,6 +58,6 @@ public class AdministratorController {
     //批量删除
     @PostMapping("/batchDelete")
     public void batchDelete(@RequestBody List<Integer> administratorIds){
-        
+
     }
 }

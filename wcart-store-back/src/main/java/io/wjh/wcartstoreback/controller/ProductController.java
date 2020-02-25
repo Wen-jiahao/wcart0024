@@ -12,7 +12,7 @@ public class ProductController {
 
     @GetMapping("/search")
     public PageOutDTO<ProductListOutDTO> search(@RequestBody ProductSearchInDTO productSearchInDTO, @RequestParam Integer pageNum){
-        return null; 
+        return null;
     }
     @GetMapping("/getById")
     public ProductShowOutDTO getById(@RequestParam Integer productId){

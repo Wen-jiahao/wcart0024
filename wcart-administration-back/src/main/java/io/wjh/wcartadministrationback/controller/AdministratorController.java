@@ -43,6 +43,7 @@ public class AdministratorController {
     public AdministratorShowOutDTO getById(@RequestParam Integer administratorId){
         return null;
     }
+    //添加返回主键id
     @PostMapping("/creeate")
     public Integer create(@RequestBody AdminisyratorCreateDTO adminisyratorCreateDTO){
         return null;

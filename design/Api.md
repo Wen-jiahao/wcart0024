@@ -264,7 +264,7 @@ Request Field
 ## 0.8 管理员跟新
 
 ## 1.0 商品列表
-URL：/api/search/product?page=${page}&size=${size}
+URL：/api/product/get?page=${page}&size=${size}
 
 Method ：GET
 

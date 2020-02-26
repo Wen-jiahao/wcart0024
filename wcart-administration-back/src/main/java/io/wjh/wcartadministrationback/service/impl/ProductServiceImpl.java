@@ -8,6 +8,7 @@ import io.wjh.wcartadministrationback.dao.ProductMapper;
 import io.wjh.wcartadministrationback.dto.in.ProductCreateDTO;
 import io.wjh.wcartadministrationback.dto.in.ProductUpdateDTO;
 import io.wjh.wcartadministrationback.dto.out.ProductListOutDTO;
+import io.wjh.wcartadministrationback.dto.out.ProductShowOutDTO;
 import io.wjh.wcartadministrationback.po.Product;
 import io.wjh.wcartadministrationback.po.ProductDetail;
 import io.wjh.wcartadministrationback.service.ProductService;
@@ -102,5 +103,28 @@ public class ProductServiceImpl implements ProductService {
         PageHelper.startPage(pageNum,10);
         Page<ProductListOutDTO> page=productMapper.search();
         return page;
+    }
+
+    @Override
+    public ProductShowOutDTO getById(Integer productId) {
+        Product product = productMapper.selectByPrimaryKey(productId);
+        ProductDetail productDetail = productDetailMapper.selectByPrimaryKey(productId);
+        ProductShowOutDTO productShowOutDTO = new ProductShowOutDTO();
+        productShowOutDTO.setProductId(productId);
+        productShowOutDTO.setProductCode(product.getProductCode());
+        productShowOutDTO.setProductName(product.getProductName());
+        productShowOutDTO.setPrice(product.getPrice());
+        productShowOutDTO.setDiscount(product.getDiscount());
+        productShowOutDTO.setStatus(product.getStatus());
+        productShowOutDTO.setMainPicUrl(product.getMainPicUrl());
+        productShowOutDTO.setRewordPoints(product.getRewordPoints());
+        productShowOutDTO.setSortOrder(product.getSortOrder());
+        productShowOutDTO.setStockQuantity(product.getQuantity());
+        productShowOutDTO.setDescription(productDetail.getDescription());
+        String otherPicUrlsJson = productDetail.getOtherPicUrls();
+        //图片返回list
+        List<String> otherPicUrls = JSON.parseArray(otherPicUrlsJson, String.class);
+        productShowOutDTO.setOtherPicUrls(otherPicUrls);
+        return productShowOutDTO;
     }
 }

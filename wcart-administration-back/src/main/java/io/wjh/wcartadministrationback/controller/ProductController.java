@@ -4,6 +4,7 @@ import com.github.pagehelper.Page;
 import io.wjh.wcartadministrationback.dto.in.*;
 import io.wjh.wcartadministrationback.dto.out.PageOutDTO;
 import io.wjh.wcartadministrationback.dto.out.ProductListOutDTO;
+import io.wjh.wcartadministrationback.dto.out.ProductShowOutDTO;
 import io.wjh.wcartadministrationback.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,11 @@ public class ProductController {
     @PostMapping("/batchDelete")
     public void batchDelete(@RequestBody List<Integer> productIds){
         productService.batchDelete(productIds);
+    }
+    @GetMapping("/getById")
+    public ProductShowOutDTO getById(@RequestParam Integer productId){
+        ProductShowOutDTO productShowOutDTO = productService.getById(productId);
+        return productShowOutDTO;
     }
 
 }

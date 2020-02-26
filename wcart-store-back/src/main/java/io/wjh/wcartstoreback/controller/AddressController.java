@@ -27,7 +27,7 @@ public class AddressController {
 
     }
 
-    @PostMapping
+    @PostMapping("/delete")
     public void delete(@RequestBody Integer addressId){
 
     }

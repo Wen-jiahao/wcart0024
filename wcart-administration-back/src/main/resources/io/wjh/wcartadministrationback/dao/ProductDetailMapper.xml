@@ -80,4 +80,12 @@
     set other_pic_urls = #{otherPicUrls,jdbcType=VARCHAR}
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
+  <delete id="batchDelete">
+    delete from jcart_product_detail
+    where product_id
+    in
+    <foreach item="productIds" collection="productIds" separator="," open="(" close=")" index="index">
+      #{productIds}
+    </foreach>
+  </delete>
 </mapper>

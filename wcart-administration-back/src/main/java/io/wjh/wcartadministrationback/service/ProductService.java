@@ -1,8 +1,12 @@
 package io.wjh.wcartadministrationback.service;
 
+import com.github.pagehelper.Page;
 import io.wjh.wcartadministrationback.dto.in.ProductCreateDTO;
 import io.wjh.wcartadministrationback.dto.in.ProductUpdateDTO;
+import io.wjh.wcartadministrationback.dto.out.ProductListOutDTO;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 public interface ProductService {
@@ -12,4 +16,9 @@ public interface ProductService {
     //修改数据
     void update(ProductUpdateDTO productUpdateDTO);
 
+    void delete(Integer administratorId);
+
+    void batchDelete(List<Integer> productIds);
+
+    Page<ProductListOutDTO> search(Integer pageNum);
 }

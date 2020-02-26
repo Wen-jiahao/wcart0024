@@ -1,6 +1,9 @@
 package io.wjh.wcartadministrationback.dao;
 
 import io.wjh.wcartadministrationback.po.ProductDetail;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ProductDetailMapper {
     int deleteByPrimaryKey(Integer productId);
@@ -16,4 +19,6 @@ public interface ProductDetailMapper {
     int updateByPrimaryKeyWithBLOBs(ProductDetail record);
 
     int updateByPrimaryKey(ProductDetail record);
+
+    void batchDelete(@Param("productIds") List<Integer> productIds);
 }

@@ -1,16 +1,21 @@
 package io.wjh.wcartadministrationback.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import io.wjh.wcartadministrationback.dao.ProductDetailMapper;
 import io.wjh.wcartadministrationback.dao.ProductMapper;
 import io.wjh.wcartadministrationback.dto.in.ProductCreateDTO;
 import io.wjh.wcartadministrationback.dto.in.ProductUpdateDTO;
+import io.wjh.wcartadministrationback.dto.out.ProductListOutDTO;
 import io.wjh.wcartadministrationback.po.Product;
 import io.wjh.wcartadministrationback.po.ProductDetail;
 import io.wjh.wcartadministrationback.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -54,6 +59,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void update(ProductUpdateDTO productUpdateDTO) {
         Product product = new Product();
+        product.setProductId(productUpdateDTO.getProductId());
         product.setProductCode(productUpdateDTO.getProductCode());
         product.setProductName(productUpdateDTO.getProductName());
         product.setPrice(productUpdateDTO.getPrice());
@@ -76,5 +82,25 @@ public class ProductServiceImpl implements ProductService {
         productDetail.setOtherPicUrls(otherPicUrl);
         productDetailMapper.updateByPrimaryKeySelective(productDetail);
 
+    }
+
+    @Override
+    @Transactional
+    public void delete(Integer administratorId) {
+        productMapper.deleteByPrimaryKey(administratorId);
+        productDetailMapper.deleteByPrimaryKey(administratorId);
+    }
+
+    @Override
+    public void batchDelete(List<Integer> productIds) {
+        productMapper.batchDelete(productIds);
+        productDetailMapper.batchDelete(productIds);
+    }
+
+    @Override
+    public Page<ProductListOutDTO> search(Integer pageNum) {
+        PageHelper.startPage(pageNum,10);
+        Page<ProductListOutDTO> page=productMapper.search();
+        return page;
     }
 }

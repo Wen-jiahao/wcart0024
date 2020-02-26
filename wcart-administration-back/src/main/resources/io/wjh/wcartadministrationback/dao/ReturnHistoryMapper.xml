@@ -103,4 +103,6 @@
       customer_notified = #{customerNotified,jdbcType=BIT}
     where return_history_id = #{returnHistoryId,jdbcType=BIGINT}
   </update>
+
+
 </mapper>

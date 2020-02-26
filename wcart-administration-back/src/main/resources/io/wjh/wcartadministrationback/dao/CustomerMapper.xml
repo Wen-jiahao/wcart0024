@@ -196,4 +196,18 @@
       default_address_id = #{defaultAddressId,jdbcType=INTEGER}
     where customer_id = #{customerId,jdbcType=INTEGER}
   </update>
+  <resultMap id="CustomerListOutDTO" type="io.wjh.wcartadministrationback.dto.out.CustomerListOutDTO">
+    <id column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+
+  </resultMap>
+  <select id="search" resultMap="CustomerListOutDTO">
+    select
+    <include refid="Base_Column_List"/>
+    from jcart_customer
+  </select>
 </mapper>

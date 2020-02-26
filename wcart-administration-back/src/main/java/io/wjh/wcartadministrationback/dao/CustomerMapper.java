@@ -1,7 +1,11 @@
 package io.wjh.wcartadministrationback.dao;
 
+import com.github.pagehelper.Page;
+import io.wjh.wcartadministrationback.dto.out.CustomerListOutDTO;
 import io.wjh.wcartadministrationback.po.Customer;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CustomerMapper {
     int deleteByPrimaryKey(Integer customerId);
 
@@ -14,4 +18,6 @@ public interface CustomerMapper {
     int updateByPrimaryKeySelective(Customer record);
 
     int updateByPrimaryKey(Customer record);
+
+    Page<CustomerListOutDTO> search(Integer pageNum);
 }

@@ -2,10 +2,7 @@ package io.wjh.wcartadministrationback.controller;
 
 import io.wjh.wcartadministrationback.constant.ClientExceptionConstant;
 import io.wjh.wcartadministrationback.exception.ClientException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileNotFoundException;
@@ -17,6 +14,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/Image")
+@CrossOrigin
 public class ImageController {
 
     private List<String> imageExts= Arrays.asList("jpg","jpeg","png");

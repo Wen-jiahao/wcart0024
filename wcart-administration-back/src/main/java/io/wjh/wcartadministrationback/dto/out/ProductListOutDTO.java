@@ -6,12 +6,20 @@ public class ProductListOutDTO {
     private String productName;
     private String mainPicUrl;
     private Double price;
-    private Boolean discount;
+    private Double discount;
     private Integer stockQuantity;
     private Byte status;
 
     public Integer getProductId() {
         return productId;
+    }
+
+    public Double getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(Double discount) {
+        this.discount = discount;
     }
 
     public void setProductId(Integer productId) {
@@ -50,13 +58,7 @@ public class ProductListOutDTO {
         this.price = price;
     }
 
-    public Boolean getDiscount() {
-        return discount;
-    }
 
-    public void setDiscount(Boolean discount) {
-        this.discount = discount;
-    }
 
     public Integer getStockQuantity() {
         return stockQuantity;

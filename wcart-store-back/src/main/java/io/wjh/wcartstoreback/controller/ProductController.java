@@ -28,6 +28,7 @@ public class ProductController {
     }
     @GetMapping("/getById")
     public ProductShowOutDTO getById(@RequestParam Integer productId){
-        return null;
+        ProductShowOutDTO productShowOutDTO=productService.getById(productId);
+        return productShowOutDTO;
     }
 }

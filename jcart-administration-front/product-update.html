@@ -20,7 +20,7 @@
         <el-input v-model="sortOrder" placeholder="请输入排序"></el-input>
         <el-input v-model="description" type="textarea" placeholder="请输入描述"></el-input>
 
-        <el-select v-model="selectedStatus" placeholder="请选择状态">
+        <el-select v-model="status" placeholder="请选择状态">
             <el-option v-for="item in statuses" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
         </el-select>
@@ -40,8 +40,8 @@
         </el-upload>
         上传后其他图片：
         <br>
-        <div>
-            <el-link v-for="item in otherPicUrls" type="primary">{{item}}</el-link>
+        <div v-for="item in otherPicUrls">
+            <el-link  type="primary">{{item}}</el-link>
             <br>
         </div>
         <el-button @click="handleCreateClick">默认按钮</el-button>
@@ -51,7 +51,7 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/elementui.js"></script>
-    <script src="viewmodels/product-create.js"></script>
+    <script src="viewmodels/product-update.js"></script>
 
 </body>
 

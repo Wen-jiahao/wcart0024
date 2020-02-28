@@ -84,23 +84,23 @@ var app = new Vue({
                         console.log(error);
                         alert('上床失败');
                     });
-            });
+            }); 
 
 
         },
         createProduct() {
             axios.post('/product/create', {
-                productCode : this.productCode,
-                productName : this.productName,
-                price : this.price,
-                discount : this.discount,
-                stockQuantity : this.stockQuantity,
-                rewordPoints : this.rewordPoints,
-                sortOrder : this.sortOrder,
-                description : this.description,
-                status :this.status,
-                mainPicUrl : this.mainPicUrl,
-                othertPicUrls :this.otherPicUrls
+                productId: this.productId,
+                productName: this.productName,
+                price: this.price,
+                discount: this.discount,
+                stockQuantity: this.stockQuantity,
+                status: this.selectedStatus,
+                mainPicUrl: this.mainPicUrl,
+                rewordPoints: this.rewordPoints,
+                sortOrder: this.sortOrder,
+                description: this.description,
+                otherPicUrls: this.otherPicUrls
               })
               .then(function (response) {
                 console.log('创建成功');

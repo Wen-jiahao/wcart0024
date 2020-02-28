@@ -40,6 +40,7 @@ public class ProductController {
     }
     @PostMapping("/update")
     public void update(@RequestBody ProductUpdateDTO productUpdateDTO){
+
         productService.update(productUpdateDTO);
     }
     @PostMapping("/delete")

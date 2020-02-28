@@ -1,4 +1,4 @@
-package io.wjh.wcartadministrationback.po;
+package io.wjh.wcartstoreback.po;
 
 public class Product {
     private Integer productId;
@@ -22,8 +22,6 @@ public class Product {
     private Integer rewordPoints;
 
     private Integer sortOrder;
-
-
 
     public Integer getProductId() {
         return productId;

@@ -161,4 +161,21 @@
       sort_order = #{sortOrder,jdbcType=INTEGER}
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
+  <resultMap id="ProductListOutDTO" type="io.wjh.wcartadministrationback.dto.out.ProductListOutDTO">
+    <id column="product_id" jdbcType="INTEGER" property="productId" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_name" jdbcType="VARCHAR" property="productName" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="discount" jdbcType="DOUBLE" property="discount" />
+    <result column="quantity" jdbcType="INTEGER" property="stockQuantity" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="main_pic_url" jdbcType="VARCHAR" property="mainPicUrl" />
+  </resultMap>
+  <select id="search" resultMap="ProductListOutDTO">
+
+    select
+    <include refid="Base_Column_List"/>
+    from
+    jcart_product
+  </select>
 </mapper>

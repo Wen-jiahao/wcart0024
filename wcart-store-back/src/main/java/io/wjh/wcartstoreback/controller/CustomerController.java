@@ -17,7 +17,7 @@ public class CustomerController {
         return null;
     }
 
-    @GetMapping("/getProfile")
+   /* @GetMapping("/getProfile")
     public CustomerGetProfileOutDTO getProfile(@RequestAttribute Integer customerId){
         return null;
     }
@@ -32,16 +32,16 @@ public class CustomerController {
     public void changePwd(@RequestBody CustomerChangePwdInDTO customerChangePwdInDTO,
                           @RequestAttribute Integer customerId){
 
-    }
+    }*/
 
     @GetMapping("/getPwdResetCode")
     public String getPwdResetCode(@RequestParam String email){
         return null;
     }
 
-    @PostMapping("/resetPwd")
+ /*   @PostMapping("/resetPwd")
     public void resetPwd(@RequestBody CustomerResetPwdInDTO customerResetPwdInDTO){
 
-    }
+    }*/
 
 }

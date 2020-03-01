@@ -6,6 +6,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.auth0.jwt.interfaces.JWTVerifier;
 import io.wjh.wcartadministrationback.dto.out.AdministratorLoginOutDTO;
 import io.wjh.wcartadministrationback.po.Administrator;
+import io.wjh.wcartadministrationback.vo.AdministratorLoginVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,5 +55,18 @@ public class JWTUtil {
         administratorLoginOutDTO.setExpireTimestamp(expireTimestamp);
 
         return administratorLoginOutDTO;
+    }
+
+    public AdministratorLoginVO verifyToken(String token) {
+        JWTVerifier verifier = JWT.require(algorithm)
+                .withIssuer(issuer)
+                .build();
+        DecodedJWT jwt;
+        jwt = verifier.verify(token);
+
+        AdministratorLoginVO administratorLoginVO = new AdministratorLoginVO();
+        administratorLoginVO.setAdministratorId(jwt.getClaim("administratorId").asInt());
+        administratorLoginVO.setUsername(jwt.getSubject());
+        return administratorLoginVO;
     }
 }

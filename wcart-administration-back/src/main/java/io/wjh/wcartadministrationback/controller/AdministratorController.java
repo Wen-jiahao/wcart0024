@@ -42,14 +42,23 @@ public class AdministratorController {
             throw new ClientException(ClientExceptionConstant.ADNINISTRATOR_PASSWORD_INVALID_ERRCODE, ClientExceptionConstant.ADNINISTRATOR_PASSWORD_INVALID_ERRMSG);
         }
     }
-
+    //登录后管理员自己拿到自己信息
+    //administartorIds是token
     @GetMapping("/getProfile")
-    public AdministratorGetProfileOutDTO getProfile(Integer administartorId){
-        return null;
+    public AdministratorGetProfileOutDTO getProfile(@RequestAttribute Integer administartorId){
+        Administrator administrator = administratorService.getById(administartorId);
+        AdministratorGetProfileOutDTO administratorGetProfileOutDTO = new AdministratorGetProfileOutDTO();
+        administratorGetProfileOutDTO.setEmail(administrator.getEmail());
+        administratorGetProfileOutDTO.setRealName(administrator.getRealName());
+        administratorGetProfileOutDTO.setUsername(administrator.getUsername());
+        administratorGetProfileOutDTO.setCreateTimestamp(administrator.getCreateTime().getTime());
+        administratorGetProfileOutDTO.setAdministartorId(administrator.getAdministratorId());
+        administratorGetProfileOutDTO.setAvatarUrl(administrator.getAvatarUrl());
+        return administratorGetProfileOutDTO;
     }
 
     @PostMapping("/updateProfile")
-    public void  updateProfile(@RequestBody AdministratorUpdatefileDTO administratorUpdatefileDTO){
+    public void  updateProfile(@RequestBody AdministratorUpdatefileDTO administratorUpdatefileDTO,@RequestAttribute Integer administratorId){
 
     }
     @GetMapping("/getPwdResetCode")
@@ -84,6 +93,10 @@ public class AdministratorController {
     //批量删除
     @PostMapping("/batchDelete")
     public void batchDelete(@RequestBody List<Integer> administratorIds){
+
+    }
+    @PostMapping("/changPwd")
+    public void changPwd(@RequestBody AdministratorChangePwdInDTO administratorChangePwdInDTO,@RequestAttribute Integer administroId){
 
     }
 }

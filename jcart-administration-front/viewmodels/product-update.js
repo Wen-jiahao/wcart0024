@@ -30,8 +30,12 @@ var app = new Vue({
         mainfileList: [],
         otherfileList: []
     },
+  
     mounted() {
         console.log('view mounted');
+        tinymce.init({
+            selector: '#mytextarea'
+        });
         var url=new URL(location.href);
         this.productId=url.searchParams.get("productId");
         if(!this.productId){
@@ -43,7 +47,7 @@ var app = new Vue({
     methods: {
         handleCreateClick() {
             console.log('create click');
-
+            this.description = tinyMCE.activeEditor.getContent();
             this.updateProduct();
         },
         handleOnMainChange(val) {

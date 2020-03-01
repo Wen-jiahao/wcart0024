@@ -29,9 +29,13 @@ var app = new Vue({
           mainfileList:[],
           otherfileList :[]
     },
+    mounted(){tinymce.init({
+        selector: '#mytextarea'
+      });},
     methods:{
         handleCreateClick(){
             console.log('create click');
+            this.description=tinyMCE.activeEditor.getContent();
             this.createProduct();
         },
         handleOnMainChange(val){
@@ -91,6 +95,7 @@ var app = new Vue({
         createProduct() {
             axios.post('/product/create', {
                 productId: this.productId,
+                productCode:this.productCode,
                 productName: this.productName,
                 price: this.price,
                 discount: this.discount,

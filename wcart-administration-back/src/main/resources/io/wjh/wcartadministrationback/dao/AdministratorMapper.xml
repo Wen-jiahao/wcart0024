@@ -127,7 +127,7 @@
     where administrator_id = #{administratorId,jdbcType=INTEGER}
   </update>
 
-  <select id="getByUsername" resultType="BaseResultMap">
+  <select id="getByUsername" resultMap="BaseResultMap">
 
 select
 <include refid="Base_Column_List"/> from

@@ -57,6 +57,7 @@ public class JWTUtil {
         return administratorLoginOutDTO;
     }
 
+    //验证token
     public AdministratorLoginVO verifyToken(String token) {
         JWTVerifier verifier = JWT.require(algorithm)
                 .withIssuer(issuer)

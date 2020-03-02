@@ -60,11 +60,12 @@ public class LoginFilter implements Filter{
 
         AdministratorLoginVO administratorLoginVO = null;
         try {
+            //验证token
             administratorLoginVO = jwtUtil.verifyToken(token);
         }catch (JWTVerificationException ex){
             throw new ClientException(ClientExceptionConstant.TOKEN_INVALID_ERRCODE, ex.getMessage());
         }
-
+        //这两个值在controller中都能接收到
         request.setAttribute("administratorId", administratorLoginVO.getAdministratorId());
         request.setAttribute("administratorUsername", administratorLoginVO.getUsername());
 

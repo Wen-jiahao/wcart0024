@@ -1,17 +1,26 @@
 package io.wjh.wcartadministrationback.dto.in;
 
 public class AdminisyratorUpdateDTO {
-    private String administratorId;
+    private Integer administratorId;
+    private String realname;
     private  Byte status;
     private  String avatarUrl;
     private  String email;
     private String password;
 
-    public String getAdministratorId() {
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
+
+    public Integer getAdministratorId() {
         return administratorId;
     }
 
-    public void setAdministratorId(String administratorId) {
+    public void setAdministratorId(Integer administratorId) {
         this.administratorId = administratorId;
     }
 

@@ -8,6 +8,15 @@ public class AdminisyratorCreateDTO {
     private  String avatarUrl;
     private  String email;
     private String password;
+    private String realname;
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
 
     public String getUsername() {
         return username;

@@ -149,7 +149,7 @@ select
 
   </delete>
 
-  <select id="selectList" resultMap="BaseResultMap">
+  <select id="getList" resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
     from jcart_administrator

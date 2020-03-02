@@ -35,6 +35,7 @@ key/value存贮
 
 @RestController
 @RequestMapping("/administrator")
+@CrossOrigin
 public class AdministratorController {
 
     @Autowired
@@ -112,7 +113,7 @@ public class AdministratorController {
         administratorListDTOPageOutDTO.setList(administratorListOutDTOS);
         administratorListDTOPageOutDTO.setPageNum(list.getPageNum());
         administratorListDTOPageOutDTO.setPageSize(list.getPageSize());
-        return null;
+        return administratorListDTOPageOutDTO;
     }
     @GetMapping("getById")
     public AdministratorShowOutDTO getById(@RequestParam Integer administratorId){

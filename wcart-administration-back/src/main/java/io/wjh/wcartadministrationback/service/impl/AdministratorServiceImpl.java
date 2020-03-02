@@ -1,6 +1,8 @@
 package io.wjh.wcartadministrationback.service.impl;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import io.wjh.wcartadministrationback.dao.AdministratorMapper;
 import io.wjh.wcartadministrationback.dto.in.AdminisyratorUpdateDTO;
 import io.wjh.wcartadministrationback.po.Administrator;
@@ -57,5 +59,17 @@ public class AdministratorServiceImpl implements AdministratorService {
     @Override
     public void batchDelete(List<Integer> administratorIds) {
         administratorMapper.batchDelete(administratorIds);
+    }
+
+    @Override
+    public void updateProfile(Administrator administrator) {
+        administratorMapper.updateByPrimaryKeySelective(administrator);
+    }
+
+    @Override
+    public Page<Administrator> getList(Integer pageNum) {
+        PageHelper.startPage(pageNum,10);
+        Page<Administrator> list = administratorMapper.getList();
+        return list;
     }
 }

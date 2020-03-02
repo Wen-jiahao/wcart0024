@@ -1,5 +1,6 @@
 package io.wjh.wcartadministrationback.dao;
 
+import com.github.pagehelper.Page;
 import io.wjh.wcartadministrationback.po.Administrator;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
@@ -23,4 +24,6 @@ public interface AdministratorMapper {
     Administrator getByUsername(@Param("username")String username);
 
     void batchDelete(@Param("administratorIds") List<Integer> administratorIds);
+
+    Page<Administrator> getList();
 }

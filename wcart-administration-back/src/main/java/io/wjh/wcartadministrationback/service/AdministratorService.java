@@ -1,5 +1,6 @@
 package io.wjh.wcartadministrationback.service;
 
+import com.github.pagehelper.Page;
 import io.wjh.wcartadministrationback.dto.in.AdminisyratorUpdateDTO;
 import io.wjh.wcartadministrationback.po.Administrator;
 
@@ -17,4 +18,8 @@ public interface AdministratorService {
     void delete(Integer administratorId);
 
     void batchDelete(List<Integer> administratorIds);
+
+    void updateProfile(Administrator administrator);
+
+    Page<Administrator> getList(Integer pageNum);
 }

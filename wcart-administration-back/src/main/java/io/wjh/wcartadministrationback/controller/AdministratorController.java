@@ -1,6 +1,7 @@
 package io.wjh.wcartadministrationback.controller;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
+import com.github.pagehelper.Page;
 import io.wjh.wcartadministrationback.constant.ClientExceptionConstant;
 import io.wjh.wcartadministrationback.dto.in.*;
 import io.wjh.wcartadministrationback.dto.out.AdministratorGetProfileOutDTO;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /*
 无状态 token（通行证）
@@ -77,7 +79,13 @@ public class AdministratorController {
 
     @PostMapping("/updateProfile")
     public void  updateProfile(@RequestBody AdministratorUpdatefileDTO administratorUpdatefileDTO,@RequestAttribute Integer administratorId){
-
+        Administrator administrator = new Administrator();
+        administrator.setAdministratorId(administratorId);
+        administrator.setUsername(administratorUpdatefileDTO.getUsername());
+        administrator.setRealName(administratorUpdatefileDTO.getRealName());
+        administrator.setAvatarUrl(administratorUpdatefileDTO.getAvatarUrl());
+        administrator.setEmail(administratorUpdatefileDTO.getEmail());
+        administratorService.updateProfile(administrator);
     }
     @GetMapping("/getPwdResetCode")
     public String  getPwdResetCode(@RequestParam String email){
@@ -88,11 +96,27 @@ public class AdministratorController {
 
     }
     @GetMapping("/getList")
-    public PageOutDTO<AdministratorListDTO> getList(@RequestParam Integer pageNum){
+    public PageOutDTO<AdministratorListDTO> getList(@RequestParam(required = false, defaultValue = "1") Integer pageNum){
+        Page<Administrator> list=administratorService.getList(pageNum);
+        PageOutDTO<AdministratorListDTO> administratorListDTOPageOutDTO = new PageOutDTO<>();
+        administratorListDTOPageOutDTO.setTotal(list.getTotal());
+        List<AdministratorListDTO> administratorListOutDTOS  = list.stream().map(administrator -> {
+            AdministratorListDTO administratorListOutDTO = new AdministratorListDTO();
+            administratorListOutDTO.setAdministratorId(administrator.getAdministratorId());
+            administratorListOutDTO.setUsername(administrator.getUsername());
+            administratorListOutDTO.setRealname(administrator.getRealName());
+            administratorListOutDTO.setStatus(administrator.getStatus());
+            administratorListOutDTO.setCreateTimestamp(administrator.getCreateTime().getTime());
+            return administratorListOutDTO;
+        }).collect(Collectors.toList());
+        administratorListDTOPageOutDTO.setList(administratorListOutDTOS);
+        administratorListDTOPageOutDTO.setPageNum(list.getPageNum());
+        administratorListDTOPageOutDTO.setPageSize(list.getPageSize());
         return null;
     }
     @GetMapping("getById")
     public AdministratorShowOutDTO getById(@RequestParam Integer administratorId){
+
         return null;
     }
     //添加返回主键id

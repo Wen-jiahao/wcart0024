@@ -6,7 +6,7 @@ var app = new Vue({
     },
     mounted(){
         console.log('view monuted');
-
+        this.searchProduct();
     },
     methods:{
         searchProduct(){
@@ -28,7 +28,7 @@ var app = new Vue({
         handlePageChange(val){
             console.log(val);
             this.pageNum=val;
-            this.searchProduct;
+            this.searchProduct();
       }
     }
 })

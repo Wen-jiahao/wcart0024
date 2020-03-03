@@ -11,14 +11,14 @@
 
 <body>
     <div id="app">
-        <el-table :data="pageInfo" style="width: 100%">
+        <el-table :data="pageInfo.list" style="width: 100%">
             <el-table-column prop="mainPicUrl" label="主图">
             </el-table-column>
             <el-table-column prop="productName" label="商品名称">
             </el-table-column>
-            <el-table-column prop="address" label="价格">
+            <el-table-column prop="discount" label="打折">
             </el-table-column>
-            <el-table-column prop="price" label="打折">
+            <el-table-column prop="price" label="价格">
             </el-table-column>
             <el-table-column prop="productAbstract" label="商品摘要">
             </el-table-column>

@@ -33,16 +33,16 @@ public class CustomerController {
     @Autowired
     private JWTUtil jwtUtil;
 
-    @Autowired
+   /* @Autowired
     private SecureRandom secureRandom;
 
     @Autowired
-    private JavaMailSender mailSender;
+    private JavaMailSender mailSender;*/
 
     private HashMap<String, String> emailPwdResetCodeMap = new HashMap();
 
-    @Value("${spring.mail.username}")
-    private String fromEmail;
+   /* @Value("${spring.mail.username}")
+    private String fromEmail;*/
     @PostMapping("/register")
     public Integer register(@RequestBody CustomerRegisterInDTO customerRegisterInDTO ){
         return customerService.register(customerRegisterInDTO);
@@ -107,7 +107,7 @@ public class CustomerController {
 
     }
 
-    @GetMapping("/getPwdResetCode")
+/*    @GetMapping("/getPwdResetCode")
     public void getPwdResetCode(@RequestParam String email) throws ClientException {
         Customer customer = customerService.getByEmail(email);
         if (customer == null){
@@ -122,7 +122,7 @@ public class CustomerController {
         message.setText(hex);
         mailSender.send(message);
         emailPwdResetCodeMap.put("PwdResetCode"+email, hex);
-    }
+    }*/
 
  /*   @PostMapping("/resetPwd")
     public void resetPwd(@RequestBody CustomerResetPwdInDTO customerResetPwdInDTO){

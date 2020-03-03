@@ -9,6 +9,7 @@ public class ProductListOutDTO {
     private Double discount;
     private String mainPicUrl;
 
+
     public Integer getProductId() {
         return productId;
     }

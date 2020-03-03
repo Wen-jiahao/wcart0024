@@ -17,14 +17,14 @@ public class ProductController {
     @Autowired
     private ProductService productService;
     @GetMapping("/search")
-    public PageOutDTO<ProductListOutDTO> search(@RequestBody ProductSearchInDTO productSearchInDTO, @RequestParam(defaultValue = "1",required = false) Integer pageNum){
+    public PageOutDTO<ProductListOutDTO> search( ProductSearchInDTO productSearchInDTO, @RequestParam(defaultValue = "1",required = false) Integer pageNum){
         Page<ProductListOutDTO> productListOutDTOS=productService.search(pageNum);
         PageOutDTO<ProductListOutDTO> productListOutDTOPageOutDTO = new PageOutDTO<>();
         productListOutDTOPageOutDTO.setList(productListOutDTOS);
         productListOutDTOPageOutDTO.setPageNum(productListOutDTOS.getPageNum());
         productListOutDTOPageOutDTO.setPageSize(productListOutDTOS.getPageSize());
         productListOutDTOPageOutDTO.setTotal(productListOutDTOS.getTotal());
-        return null;
+        return productListOutDTOPageOutDTO;
     }
     @GetMapping("/getById")
     public ProductShowOutDTO getById(@RequestParam Integer productId){

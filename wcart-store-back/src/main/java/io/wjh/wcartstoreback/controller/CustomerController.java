@@ -17,9 +17,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
+import java.security.SecureRandom;
+
 
 import javax.xml.bind.DatatypeConverter;
-import java.security.SecureRandom;
 import java.util.HashMap;
 
 @RestController
@@ -31,11 +32,13 @@ public class CustomerController {
     private CustomerService customerService;
     @Autowired
     private JWTUtil jwtUtil;
+
     @Autowired
     private SecureRandom secureRandom;
 
     @Autowired
     private JavaMailSender mailSender;
+
     private HashMap<String, String> emailPwdResetCodeMap = new HashMap();
 
     @Value("${spring.mail.username}")
@@ -105,7 +108,7 @@ public class CustomerController {
     }
 
     @GetMapping("/getPwdResetCode")
-    public String getPwdResetCode(@RequestParam String email) throws ClientException {
+    public void getPwdResetCode(@RequestParam String email) throws ClientException {
         Customer customer = customerService.getByEmail(email);
         if (customer == null){
             throw new ClientException(ClientExceptionConstant.CUSTOMER_USERNAME_NOT_EXIST_ERRCODE, ClientExceptionConstant.CUSTOMER_USERNAME_NOT_EXIST_ERRMSG);

@@ -161,7 +161,7 @@
       sort_order = #{sortOrder,jdbcType=INTEGER}
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
-  <resultMap id="ProductListOutDTO" type="io.wjh.wcartadministrationback.dto.out.ProductListOutDTO">
+  <resultMap id="ProductListOutDTO" type="io.wjh.wcartstoreback.dto.out.ProductListOutDTO">
     <id column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="product_code" jdbcType="VARCHAR" property="productCode" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />

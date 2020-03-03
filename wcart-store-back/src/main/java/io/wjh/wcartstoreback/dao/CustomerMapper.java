@@ -1,7 +1,9 @@
 package io.wjh.wcartstoreback.dao;
 
 import io.wjh.wcartstoreback.po.Customer;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CustomerMapper {
     int deleteByPrimaryKey(Integer customerId);
 

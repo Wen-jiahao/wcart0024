@@ -2,18 +2,24 @@ package io.wjh.wcartstoreback.controller;
 
 import io.wjh.wcartstoreback.dto.in.CustomerLoginInDTO;
 import io.wjh.wcartstoreback.dto.in.CustomerRegisterInDTO;
+import io.wjh.wcartstoreback.service.CustomerService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/customer")
+@CrossOrigin
 public class CustomerController {
 
+    @Autowired
+    private CustomerService customerService;
     @PostMapping("/register")
     public Integer register(@RequestBody CustomerRegisterInDTO customerRegisterInDTO ){
-        return null;
+        return customerService.register(customerRegisterInDTO);
     }
     @GetMapping("/login")
     public String login(CustomerLoginInDTO customerLoginInDTO){
+
         return null;
     }
 

@@ -1,7 +1,6 @@
 package io.wjh.wcartstoreback.dto.in;
 
 public class AddressCreateInDTO {
-    //收货人
     private String receiverName;
     private String receiverMobile;
     private String content;

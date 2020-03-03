@@ -1,11 +1,27 @@
-package io.wjh.wcartstoreback.dto.in;
+package io.wjh.wcartstoreback.dto.out;
 
-public class AddressUpdateInDTO {
+public class AddressShowOutDTO {
     private Integer addressId;
+    private String tag;
     private String receiverName;
     private String receiverMobile;
     private String content;
-    private String tag;
+
+    public Integer getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(Integer addressId) {
+        this.addressId = addressId;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
     public String getReceiverName() {
         return receiverName;
@@ -29,21 +45,5 @@ public class AddressUpdateInDTO {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getTag() {
-        return tag;
-    }
-
-    public void setTag(String tag) {
-        this.tag = tag;
-    }
-
-    public Integer getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Integer addressId) {
-        this.addressId = addressId;
     }
 }

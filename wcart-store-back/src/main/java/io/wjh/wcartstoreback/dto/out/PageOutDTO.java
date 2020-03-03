@@ -3,20 +3,10 @@ package io.wjh.wcartstoreback.dto.out;
 import java.util.List;
 
 public class PageOutDTO<T> {
-
     private Long total;
     private Integer pageSize;
     private Integer pageNum;
     private List<T> list;
-
-
-    public Long getTotal() {
-        return total;
-    }
-
-    public void setTotal(Long total) {
-        this.total = total;
-    }
 
     public Integer getPageSize() {
         return pageSize;
@@ -42,8 +32,11 @@ public class PageOutDTO<T> {
         this.list = list;
     }
 
+    public Long getTotal() {
+        return total;
+    }
 
-
-
-
+    public void setTotal(Long total) {
+        this.total = total;
+    }
 }

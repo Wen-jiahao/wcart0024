@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/address")
+@CrossOrigin
 public class AddressController {
     @GetMapping("/getAddressByCustomerId")
     public List<AddressListOutDTO> getAddressByCustomerId(@RequestAttribute Integer customerId){

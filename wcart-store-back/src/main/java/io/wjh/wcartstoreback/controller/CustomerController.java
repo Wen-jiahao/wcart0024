@@ -61,12 +61,30 @@ public class CustomerController {
     @PostMapping("/updateProfile")
     public void updateProfile(@RequestBody CustomerUpdateProfileInDTO customerUpdateProfileInDTO,
                               @RequestAttribute Integer customerId){
+        Customer customer = new Customer();
+        customer.setCustomerId(customerId);
+        customer.setRealName(customerUpdateProfileInDTO.getRealName());
+        customer.setMobile(customerUpdateProfileInDTO.getMobile());
+        customer.setEmail(customerUpdateProfileInDTO.getEmail());
+        customerService.update(customer);
 
     }
 
     @PostMapping("/changePwd")
     public void changePwd(@RequestBody CustomerChangePwdInDTO customerChangePwdInDTO,
-                          @RequestAttribute Integer customerId){
+                          @RequestAttribute Integer customerId) throws ClientException {
+        Customer customer = customerService.getById(customerId);
+        String encPwdDB = customer.getEncryptedPassword();
+        BCrypt.Result result = BCrypt.verifyer().verify(customerChangePwdInDTO.getOriginPwd().toCharArray(), encPwdDB);
+
+        if (result.verified) {
+            String newPwd = customerChangePwdInDTO.getNewPwd();
+            String bcryptHashString = BCrypt.withDefaults().hashToString(12, newPwd.toCharArray());
+            customer.setEncryptedPassword(bcryptHashString);
+            customerService.update(customer);
+        }else {
+            throw new ClientException(ClientExceptionConstant.CUSTOMER_PASSWORD_INVALID_ERRCODE, ClientExceptionConstant.CUSTOMER_PASSWORD_INVALID_ERRMSG);
+        }
 
     }
 

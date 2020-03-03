@@ -131,6 +131,7 @@ public class AdministratorController {
         Administrator administrator = new Administrator();
         administrator.setUsername(adminisyratorCreateDTO.getUsername());
         administrator.setAvatarUrl(adminisyratorCreateDTO.getAvatarUrl());
+        administrator.setRealName(adminisyratorCreateDTO.getRealname());
         administrator.setEmail(adminisyratorCreateDTO.getEmail());
         String password = BCrypt.withDefaults().hashToString(12, adminisyratorCreateDTO.getPassword().toCharArray());
         administrator.setEncryptedPassword(password);

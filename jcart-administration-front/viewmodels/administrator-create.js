@@ -3,15 +3,15 @@ var app = new Vue({
     data: {
         username: '',
         password: '',
-        realName: '',
+        realname: '',
         email: '',
         avatarUrl: '',
         selectedStatus: 1,
         statuses : [{ 
-            value: '0',
+            value: 0,
             label: '禁用'
           }, {
-            value: '1',
+            value: 1,
             label: '启用'
           }],
     },
@@ -25,7 +25,7 @@ var app = new Vue({
             axios.post('/administrator/create', {
                 username: this.username,
                 password: this.password,
-                realName: this.realName,
+                realName: this.realname,
                 email: this.email,
                 avatarUrl: this.avatarUrl,
                 status: this.selectedStatus

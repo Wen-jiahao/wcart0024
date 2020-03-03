@@ -1,6 +1,7 @@
 package io.wjh.wcartstoreback.dao;
 
 import io.wjh.wcartstoreback.po.Customer;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -16,4 +17,6 @@ public interface CustomerMapper {
     int updateByPrimaryKeySelective(Customer record);
 
     int updateByPrimaryKey(Customer record);
+
+    Customer getByUsername(@Param("username") String username);
 }

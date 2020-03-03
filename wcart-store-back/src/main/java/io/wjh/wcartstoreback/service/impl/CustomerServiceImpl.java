@@ -37,4 +37,9 @@ public class CustomerServiceImpl implements CustomerService {
         Integer customerId = customer.getCustomerId();
         return customerId;
     }
+
+    @Override
+    public Customer getByUsername(String username) {
+        return customerMapper.getByUsername(username);
+    }
 }

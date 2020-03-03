@@ -19,6 +19,9 @@ public class Administrator {
 
     private String avatarUrl;
 
+
+
+
     public Integer getAdministratorId() {
         return administratorId;
     }

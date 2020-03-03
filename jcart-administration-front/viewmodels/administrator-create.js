@@ -25,7 +25,7 @@ var app = new Vue({
             axios.post('/administrator/create', {
                 username: this.username,
                 password: this.password,
-                realName: this.realname,
+                realname: this.realname,
                 email: this.email,
                 avatarUrl: this.avatarUrl,
                 status: this.selectedStatus

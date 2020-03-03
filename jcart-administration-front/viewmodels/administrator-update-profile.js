@@ -3,7 +3,7 @@ var app = new Vue({
     data: {
         administratorId: '',
         username: '',
-        realName: '',
+        realname: '',
         email: '',
         avatarUrl: '',
         createTimestamp: ''
@@ -25,7 +25,7 @@ var app = new Vue({
                     var me = response.data;
                     app.administratorId = me.administratorId;
                     app.username = me.username;
-                    app.realName = me.realName;
+                    app.realname = me.realname;
                     app.email = me.email;
                     app.avatarUrl = me.avatarUrl;
                     app.createTimestamp = me.createTimestamp;
@@ -36,7 +36,7 @@ var app = new Vue({
         },
         updateMyProfile() {
             axios.post('/administrator/updateProfile', {
-                realName: this.realName,
+                realname: this.realname,
                 email: this.email,
                 avatarUrl: this.avatarUrl,
 

@@ -6,6 +6,24 @@ public class AdministratorShowOutDTO {
     private  Byte status;
     private  String avatarUrl;
     private  String email;
+    private String realname;
+    private String password;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getRealname() {
+        return realname;
+    }
+
+    public void setRealname(String realname) {
+        this.realname = realname;
+    }
 
     public Integer getAdministratorId() {
         return administratorId;

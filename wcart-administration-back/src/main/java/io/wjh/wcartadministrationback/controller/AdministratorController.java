@@ -117,8 +117,15 @@ public class AdministratorController {
     }
     @GetMapping("getById")
     public AdministratorShowOutDTO getById(@RequestParam Integer administratorId){
-
-        return null;
+        Administrator administrator = administratorService.getById(administratorId);
+        AdministratorShowOutDTO administratorShowOutDTO = new AdministratorShowOutDTO();
+        administratorShowOutDTO.setAdministratorId(administrator.getAdministratorId());
+        administratorShowOutDTO.setAvatarUrl(administrator.getAvatarUrl());
+        administratorShowOutDTO.setEmail(administrator.getEmail());
+        administratorShowOutDTO.setStatus(administrator.getStatus());
+        administratorShowOutDTO.setUsername(administrator.getUsername());
+        administratorShowOutDTO.setRealname(administrator.getRealName());
+        return administratorShowOutDTO;
     }
     //添加返回主键id
     @PostMapping("/create")

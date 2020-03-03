@@ -17,13 +17,13 @@ var app = new Vue({
         othertPicUrls :[],
         status :'',
         statuses : [{ 
-            value: '0',
+            value: 0,
             label: '上架'
           }, {
-            value: '1',
+            value: 1,
             label: '下架'
           }, {
-            value: '2',
+            value: 2,
             label: '待审核'
           }],
           mainfileList:[],

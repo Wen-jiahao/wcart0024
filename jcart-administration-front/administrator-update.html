@@ -14,8 +14,12 @@
         <el-input v-model="username" placeholder="请输入用户名" readonly></el-input>
         <el-input v-model="realname" placeholder="请输入姓名"></el-input>
         <el-input v-model="email" placeholder="请输入邮箱"></el-input>
+        <el-input v-model="password" placeholder="请输入密码"></el-input>
         <el-input v-model="avatarUrl" placeholder="请输入头像"></el-input>
-        <el-input v-model="createTimestamp" placeholder="请输入创建时间" readonly></el-input>
+        <el-select v-model="selectedStatus" placeholder="请选择状态">
+            <el-option v-for="item in statuse" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+        </el-select>
         <br>
         <el-button type="primary" @click="handleUpdateClick">更新</el-button>
     </div>
@@ -24,7 +28,7 @@
     <script src="assets/js/common.js"></script>
     <script src="assets/js/vue.js"></script>
     <script src="assets/js/elementui.js"></script>
-    <script src="viewmodels/administrator-update-profile.js"></script>
+    <script src="viewmodels/administrator-update.js"></script>
 
 </body>
 

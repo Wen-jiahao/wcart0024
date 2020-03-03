@@ -2,8 +2,11 @@ package io.wjh.wcartstoreback.controller;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import io.wjh.wcartstoreback.constant.ClientExceptionConstant;
+import io.wjh.wcartstoreback.dto.in.CustomerChangePwdInDTO;
 import io.wjh.wcartstoreback.dto.in.CustomerLoginInDTO;
 import io.wjh.wcartstoreback.dto.in.CustomerRegisterInDTO;
+import io.wjh.wcartstoreback.dto.in.CustomerUpdateProfileInDTO;
+import io.wjh.wcartstoreback.dto.out.CustomerGetProfileOutDTO;
 import io.wjh.wcartstoreback.dto.out.CustomerLoginOutDTO;
 import io.wjh.wcartstoreback.exception.ClientException;
 import io.wjh.wcartstoreback.po.Customer;
@@ -42,9 +45,17 @@ public class CustomerController {
         }
     }
 
-   /* @GetMapping("/getProfile")
+   @GetMapping("/getProfile")
     public CustomerGetProfileOutDTO getProfile(@RequestAttribute Integer customerId){
-        return null;
+       Customer customer = customerService.getById(customerId);
+       CustomerGetProfileOutDTO customerGetProfileOutDTO = new CustomerGetProfileOutDTO();
+       customerGetProfileOutDTO.setUsername(customer.getUsername());
+       customerGetProfileOutDTO.setRealName(customer.getRealName());
+       customerGetProfileOutDTO.setMobile(customer.getMobile());
+       customerGetProfileOutDTO.setMobileVerified(customer.getMobileVerified());
+       customerGetProfileOutDTO.setEmail(customer.getEmail());
+       customerGetProfileOutDTO.setEmailVerified(customer.getEmailVerified());
+        return customerGetProfileOutDTO;
     }
 
     @PostMapping("/updateProfile")
@@ -57,7 +68,7 @@ public class CustomerController {
     public void changePwd(@RequestBody CustomerChangePwdInDTO customerChangePwdInDTO,
                           @RequestAttribute Integer customerId){
 
-    }*/
+    }
 
     @GetMapping("/getPwdResetCode")
     public String getPwdResetCode(@RequestParam String email){

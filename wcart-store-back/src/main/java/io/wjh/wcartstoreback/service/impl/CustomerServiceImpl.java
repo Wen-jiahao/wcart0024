@@ -42,4 +42,9 @@ public class CustomerServiceImpl implements CustomerService {
     public Customer getByUsername(String username) {
         return customerMapper.getByUsername(username);
     }
+
+    @Override
+    public Customer getById(Integer customerId) {
+        return customerMapper.selectByPrimaryKey(customerId);
+    }
 }

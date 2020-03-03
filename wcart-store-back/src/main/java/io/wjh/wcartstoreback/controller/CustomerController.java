@@ -13,7 +13,14 @@ import io.wjh.wcartstoreback.po.Customer;
 import io.wjh.wcartstoreback.service.CustomerService;
 import io.wjh.wcartstoreback.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
+
+import javax.xml.bind.DatatypeConverter;
+import java.security.SecureRandom;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/customer")
@@ -24,6 +31,15 @@ public class CustomerController {
     private CustomerService customerService;
     @Autowired
     private JWTUtil jwtUtil;
+    @Autowired
+    private SecureRandom secureRandom;
+
+    @Autowired
+    private JavaMailSender mailSender;
+    private HashMap<String, String> emailPwdResetCodeMap = new HashMap();
+
+    @Value("${spring.mail.username}")
+    private String fromEmail;
     @PostMapping("/register")
     public Integer register(@RequestBody CustomerRegisterInDTO customerRegisterInDTO ){
         return customerService.register(customerRegisterInDTO);
@@ -89,8 +105,20 @@ public class CustomerController {
     }
 
     @GetMapping("/getPwdResetCode")
-    public String getPwdResetCode(@RequestParam String email){
-        return null;
+    public String getPwdResetCode(@RequestParam String email) throws ClientException {
+        Customer customer = customerService.getByEmail(email);
+        if (customer == null){
+            throw new ClientException(ClientExceptionConstant.CUSTOMER_USERNAME_NOT_EXIST_ERRCODE, ClientExceptionConstant.CUSTOMER_USERNAME_NOT_EXIST_ERRMSG);
+        }
+        byte[] bytes = secureRandom.generateSeed(3);
+        String hex = DatatypeConverter.printHexBinary(bytes);
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(fromEmail);
+        message.setTo(email);
+        message.setSubject("jcart重置密码");
+        message.setText(hex);
+        mailSender.send(message);
+        emailPwdResetCodeMap.put("PwdResetCode"+email, hex);
     }
 
  /*   @PostMapping("/resetPwd")

@@ -19,4 +19,7 @@ public interface CustomerMapper {
     int updateByPrimaryKey(Customer record);
 
     Customer getByUsername(@Param("username") String username);
+
+
+    Customer selectByEmail(String email);
 }

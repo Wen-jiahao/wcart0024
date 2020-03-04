@@ -6,6 +6,8 @@ import io.wjh.wcartstoreback.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class AddressServiceImpl implements AddressService {
     @Autowired
@@ -23,5 +25,15 @@ public class AddressServiceImpl implements AddressService {
     @Override
     public void create(Address address) {
         addressMapper.insertSelective(address);
+    }
+
+    @Override
+    public Address getById(Integer invoiceAddressId) {
+        return addressMapper.selectByPrimaryKey(invoiceAddressId);
+    }
+
+    @Override
+    public List<Address> getByCustomerId(Integer customerId) {
+        return addressMapper.getByCustomerId(customerId);
     }
 }

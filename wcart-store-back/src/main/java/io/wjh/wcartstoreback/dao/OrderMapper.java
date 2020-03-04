@@ -1,7 +1,9 @@
 package io.wjh.wcartstoreback.dao;
 
 import io.wjh.wcartstoreback.po.Order;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface OrderMapper {
     int deleteByPrimaryKey(Long orderId);
 

@@ -31,6 +31,16 @@ public class OrderShowOutDTO {
 
     private List<orderProductVo> orderProducts;
 
+    private List<OrderHistoryListOutDTO> orderHistories;
+
+    public List<OrderHistoryListOutDTO> getOrderHistories() {
+        return orderHistories;
+    }
+
+    public void setOrderHistories(List<OrderHistoryListOutDTO> orderHistories) {
+        this.orderHistories = orderHistories;
+    }
+
     public Long getOrderId() {
         return orderId;
     }

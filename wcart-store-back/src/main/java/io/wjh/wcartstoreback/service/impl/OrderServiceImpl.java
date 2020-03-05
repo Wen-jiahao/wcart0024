@@ -9,14 +9,12 @@ import io.wjh.wcartstoreback.dao.OrderDetailMapper;
 import io.wjh.wcartstoreback.dao.OrderMapper;
 import io.wjh.wcartstoreback.dto.in.OrderCheckoutInDTO;
 import io.wjh.wcartstoreback.dto.in.OrderProductInDTO;
+import io.wjh.wcartstoreback.dto.out.OrderHistoryListOutDTO;
 import io.wjh.wcartstoreback.dto.out.OrderShowOutDTO;
 import io.wjh.wcartstoreback.dto.out.ProductShowOutDTO;
 import io.wjh.wcartstoreback.enumeration.OrderStatus;
 import io.wjh.wcartstoreback.po.*;
-import io.wjh.wcartstoreback.service.AddressService;
-import io.wjh.wcartstoreback.service.CustomerService;
-import io.wjh.wcartstoreback.service.OrderService;
-import io.wjh.wcartstoreback.service.ProductService;
+import io.wjh.wcartstoreback.service.*;
 import io.wjh.wcartstoreback.vo.orderProductVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,7 +40,8 @@ public class OrderServiceImpl implements OrderService {
     private CustomerMapper customerMapper;
     @Autowired
     private CustomerService customerService;
-
+    @Autowired
+    private OrderHistoryService orderHistoryService;
     @Override
     @Transactional
     public Long checkout(OrderCheckoutInDTO orderCheckoutInDTO,Integer customerId) {
@@ -136,6 +135,16 @@ public class OrderServiceImpl implements OrderService {
 
         List<orderProductVo> orderProductVos = JSON.parseArray(orderDetail.getOrderProducts(), orderProductVo.class);
         orderShowOutDTO.setOrderProducts(orderProductVos);
+        List<OrderHistory> orderHistories=orderHistoryService.getById(orderId);
+        List<OrderHistoryListOutDTO> orderHistoryListOutDTOS = orderHistories.stream().map(orderHistory -> {
+            OrderHistoryListOutDTO orderHistoryListOutDTO = new OrderHistoryListOutDTO();
+            orderHistoryListOutDTO.setComment(orderHistory.getComment());
+            orderHistoryListOutDTO.setOrderStatus(orderHistory.getOrderStatus());
+            orderHistoryListOutDTO.setTimestamp(orderHistory.getTime().getTime());
+            return orderHistoryListOutDTO;
+        }).collect(Collectors.toList());
+        orderShowOutDTO.setOrderHistories(orderHistoryListOutDTOS);
+
         return orderShowOutDTO;
     }
 }

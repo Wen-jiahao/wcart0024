@@ -20,4 +20,6 @@ public interface CustomerMapper {
     int updateByPrimaryKey(Customer record);
 
     Page<CustomerListOutDTO> search(Integer pageNum);
+
+    Page<Customer> searchCustomer();
 }

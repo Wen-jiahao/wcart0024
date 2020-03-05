@@ -13,6 +13,15 @@ public class CustomerShowOutDTD {
     private Boolean newsSubscribed;
     private Integer rewordPoints;
     private Integer defaultAddressId;
+    private String defaultAddress;
+
+    public String getDefaultAddress() {
+        return defaultAddress;
+    }
+
+    public void setDefaultAddress(String defaultAddress) {
+        this.defaultAddress = defaultAddress;
+    }
 
     public Integer getCustomerId() {
         return customerId;

@@ -6,7 +6,7 @@ public class CustomerListOutDTO {
     private String realName;
     private String email;
     private Byte status;
-    private Byte mobile;
+    private String mobile;
     private Long createTimestamp;
 
     public Integer getCustomerId() {
@@ -49,11 +49,11 @@ public class CustomerListOutDTO {
         this.status = status;
     }
 
-    public Byte getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(Byte mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 

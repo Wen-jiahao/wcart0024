@@ -6,7 +6,25 @@ public class OrderProductShowOutDTO {
     private String productName;
     private Integer quantity;
     private Double unitPrice;
+    private Double totalPrice;
     private Integer unitRewordPoints;
+    private  Integer totalRewordPoints;
+
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Integer getTotalRewordPoints() {
+        return totalRewordPoints;
+    }
+
+    public void setTotalRewordPoints(Integer totalRewordPoints) {
+        this.totalRewordPoints = totalRewordPoints;
+    }
 
     public Integer getProductId() {
         return productId;

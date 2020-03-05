@@ -5,6 +5,7 @@ import java.util.List;
 public class OrderShowOutDTO {
     private Long orderId;
     private Integer customerId;
+    private String customerName;
     private Byte status;
     private Double totalPrice;
     private Integer rewordPoints;
@@ -17,7 +18,16 @@ public class OrderShowOutDTO {
     private String invoiceAddress;
     private Double invoicePrice;
     private String comment;
+
     private List<OrderProductShowOutDTO> orderProducts;
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 
     public Long getOrderId() {
         return orderId;

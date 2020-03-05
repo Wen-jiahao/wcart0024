@@ -1,6 +1,7 @@
 package io.wjh.wcartadministrationback.controller;
 
 import com.github.pagehelper.Page;
+import com.sun.org.apache.regexp.internal.RE;
 import io.wjh.wcartadministrationback.dto.in.OrderSearchInDTO;
 import io.wjh.wcartadministrationback.dto.out.*;
 import io.wjh.wcartadministrationback.po.Order;
@@ -45,8 +46,9 @@ public class OrderController {
          return orderListOutDTDPageOutDTO;
      }
     @GetMapping("/getById")
-    public OrderShowOutDTO getById(@RequestParam Integer orderId){
-        return null;
+    public OrderShowOutDTO getById(@RequestParam Long orderId){
+        OrderShowOutDTO orderShowOutDTO= orderService.getById(orderId);
+        return orderShowOutDTO;
     }
     @GetMapping("/getInvoiceInfo")
     public OrderInvoiceShowOutDTO getInvoiceInfo(@RequestParam Long orderId){

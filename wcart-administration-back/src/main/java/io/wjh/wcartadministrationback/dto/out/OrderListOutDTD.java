@@ -1,18 +1,19 @@
 package io.wjh.wcartadministrationback.dto.out;
 
 public class OrderListOutDTD {
-    private Integer orderId;
+    private Long orderId;
     private  Integer customerId;
     private Byte status;
     private Double totalPrice;
     private Long createTime;
     private Long updateTime;
 
-    public Integer getOrderId() {
+
+    public Long getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Integer orderId) {
+    public void setOrderId(Long orderId) {
         this.orderId = orderId;
     }
 

@@ -2,6 +2,7 @@ package io.wjh.wcartadministrationback.controller;
 
 import com.github.pagehelper.Page;
 import io.wjh.wcartadministrationback.dto.in.CustomerSearchInDTO;
+import io.wjh.wcartadministrationback.dto.in.CustomerSetStatusInDTO;
 import io.wjh.wcartadministrationback.dto.in.ProductSearchInDTO;
 import io.wjh.wcartadministrationback.dto.out.CustomerListOutDTO;
 import io.wjh.wcartadministrationback.dto.out.CustomerShowOutDTD;
@@ -73,7 +74,7 @@ public class CustomerController {
         return customerShowOutDTO;
     }
     @PostMapping("/disable")
-    public void disable(@RequestParam Integer customerId){
-
+    public void disable(@RequestBody CustomerSetStatusInDTO customerSetStatusInDTO){
+        customerService.disable(customerSetStatusInDTO);
     }
 }

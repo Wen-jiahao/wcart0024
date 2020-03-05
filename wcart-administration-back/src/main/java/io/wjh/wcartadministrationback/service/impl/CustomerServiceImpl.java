@@ -3,6 +3,7 @@ package io.wjh.wcartadministrationback.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import io.wjh.wcartadministrationback.dao.CustomerMapper;
+import io.wjh.wcartadministrationback.dto.in.CustomerSetStatusInDTO;
 import io.wjh.wcartadministrationback.dto.out.CustomerListOutDTO;
 import io.wjh.wcartadministrationback.po.Customer;
 import io.wjh.wcartadministrationback.service.CustomerService;
@@ -32,5 +33,13 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public Customer getById(Integer customerId) {
         return customerMapper.selectByPrimaryKey(customerId);
+    }
+
+    @Override
+    public void disable(CustomerSetStatusInDTO customerSetStatusInDTO) {
+        Customer customer = new Customer();
+        customer.setCustomerId(customerSetStatusInDTO.getCustomerId());
+        customer.setStatus(customerSetStatusInDTO.getStatus());
+        customerMapper.updateByPrimaryKeySelective(customer);
     }
 }

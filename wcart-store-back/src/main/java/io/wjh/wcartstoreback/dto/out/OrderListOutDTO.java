@@ -3,8 +3,6 @@ package io.wjh.wcartstoreback.dto.out;
 public class OrderListOutDTO {
     private Long orderId;
     private Integer customerId;
-    private String customerName;
-    private Integer totalProducts;
     private Byte status;
     private Double totalPrice;
     private Long createTimestamp;
@@ -25,21 +23,6 @@ public class OrderListOutDTO {
         this.customerId = customerId;
     }
 
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public Integer getTotalProducts() {
-        return totalProducts;
-    }
-
-    public void setTotalProducts(Integer totalProducts) {
-        this.totalProducts = totalProducts;
-    }
 
     public Byte getStatus() {
         return status;

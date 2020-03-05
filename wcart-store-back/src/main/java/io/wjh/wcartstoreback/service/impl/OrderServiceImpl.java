@@ -1,17 +1,20 @@
 package io.wjh.wcartstoreback.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import io.wjh.wcartstoreback.dao.CustomerMapper;
 import io.wjh.wcartstoreback.dao.OrderDetailMapper;
 import io.wjh.wcartstoreback.dao.OrderMapper;
 import io.wjh.wcartstoreback.dto.in.OrderCheckoutInDTO;
 import io.wjh.wcartstoreback.dto.in.OrderProductInDTO;
+import io.wjh.wcartstoreback.dto.out.OrderShowOutDTO;
 import io.wjh.wcartstoreback.dto.out.ProductShowOutDTO;
 import io.wjh.wcartstoreback.enumeration.OrderStatus;
-import io.wjh.wcartstoreback.po.Address;
-import io.wjh.wcartstoreback.po.Order;
-import io.wjh.wcartstoreback.po.OrderDetail;
-import io.wjh.wcartstoreback.po.Product;
+import io.wjh.wcartstoreback.po.*;
 import io.wjh.wcartstoreback.service.AddressService;
+import io.wjh.wcartstoreback.service.CustomerService;
 import io.wjh.wcartstoreback.service.OrderService;
 import io.wjh.wcartstoreback.service.ProductService;
 import io.wjh.wcartstoreback.vo.orderProductVo;
@@ -35,6 +38,10 @@ public class OrderServiceImpl implements OrderService {
     private ProductService productService;
     @Autowired
     private AddressService addressService;
+    @Autowired
+    private CustomerMapper customerMapper;
+    @Autowired
+    private CustomerService customerService;
 
     @Override
     @Transactional
@@ -96,5 +103,39 @@ public class OrderServiceImpl implements OrderService {
         orderDetail.setOrderProducts(JSON.toJSONString(orderProductVOS));
         orderDetailMapper.insertSelective(orderDetail);
         return orderId;
+    }
+
+    @Override
+    public Page<Order> getByCustomerId(Integer customerId, Integer pageNum) {
+        PageHelper.startPage(pageNum,10);
+        Page<Order> orders=orderMapper.selectByCutomerId(customerId);
+        return orders;
+    }
+
+    @Override
+    public OrderShowOutDTO getById(Long orderId) {
+        Order order = orderMapper.selectByPrimaryKey(orderId);
+        OrderDetail orderDetail = orderDetailMapper.selectByPrimaryKey(orderId);
+        OrderShowOutDTO orderShowOutDTO = new OrderShowOutDTO();
+        Customer customer = customerService.getById(order.getCustomerId());
+        orderShowOutDTO.setOrderId(order.getOrderId());
+        orderShowOutDTO.setCustomerName(customer.getRealName());
+        orderShowOutDTO.setStatus(order.getStatus());
+        orderShowOutDTO.setTotalPrice(order.getTotalPrice());
+        orderShowOutDTO.setRewordPoints(order.getRewordPoints());
+        orderShowOutDTO.setCreateTimestamp(order.getCreateTime().getTime());
+        orderShowOutDTO.setUpdateTimestamp(order.getUpdateTime().getTime());
+
+        orderShowOutDTO.setShipMethod(orderDetail.getShipMethod());
+        orderShowOutDTO.setShipAddress(orderDetail.getShipAddress());
+        orderShowOutDTO.setShipPrice(orderDetail.getShipPrice());
+        orderShowOutDTO.setPayMethod(orderDetail.getPayMethod());
+        orderShowOutDTO.setInvoiceAddress(orderDetail.getInvoiceAddress());
+        orderShowOutDTO.setInvoicePrice(orderDetail.getInvoicePrice());
+        orderShowOutDTO.setComment(orderDetail.getComment());
+
+        List<orderProductVo> orderProductVos = JSON.parseArray(orderDetail.getOrderProducts(), orderProductVo.class);
+        orderShowOutDTO.setOrderProducts(orderProductVos);
+        return orderShowOutDTO;
     }
 }

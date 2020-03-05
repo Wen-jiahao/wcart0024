@@ -1,9 +1,13 @@
 package io.wjh.wcartstoreback.dto.out;
+;
 
 import java.util.List;
+import io.wjh.wcartstoreback.vo.orderProductVo;
 
 public class OrderShowOutDTO {
+
     private Long orderId;
+    private String customerName;
     private Byte status;
     private Double totalPrice;
     private Integer rewordPoints;
@@ -16,8 +20,16 @@ public class OrderShowOutDTO {
     private String invoiceAddress;
     private Double invoicePrice;
     private String comment;
-    private List<OrderProductOutDTO> orderProducts;
-    private List<OrderHistoryListOutDTO> orderHistories;
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
+
+    private List<orderProductVo> orderProducts;
 
     public Long getOrderId() {
         return orderId;
@@ -123,19 +135,11 @@ public class OrderShowOutDTO {
         this.comment = comment;
     }
 
-    public List<OrderProductOutDTO> getOrderProducts() {
+    public List<orderProductVo> getOrderProducts() {
         return orderProducts;
     }
 
-    public void setOrderProducts(List<OrderProductOutDTO> orderProducts) {
+    public void setOrderProducts(List<orderProductVo> orderProducts) {
         this.orderProducts = orderProducts;
-    }
-
-    public List<OrderHistoryListOutDTO> getOrderHistories() {
-        return orderHistories;
-    }
-
-    public void setOrderHistories(List<OrderHistoryListOutDTO> orderHistories) {
-        this.orderHistories = orderHistories;
     }
 }

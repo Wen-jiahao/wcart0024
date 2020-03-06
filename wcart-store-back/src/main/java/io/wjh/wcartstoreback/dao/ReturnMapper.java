@@ -1,7 +1,10 @@
 package io.wjh.wcartstoreback.dao;
 
+import com.github.pagehelper.Page;
 import io.wjh.wcartstoreback.po.Return;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface ReturnMapper {
@@ -16,4 +19,6 @@ public interface ReturnMapper {
     int updateByPrimaryKeySelective(Return record);
 
     int updateByPrimaryKey(Return record);
+
+    Page<Return> selectByCustomerId(Integer customerId);
 }

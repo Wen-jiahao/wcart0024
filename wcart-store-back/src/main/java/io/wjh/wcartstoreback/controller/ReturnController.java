@@ -1,6 +1,9 @@
 package io.wjh.wcartstoreback.controller;
 
+import com.github.pagehelper.Page;
 import io.wjh.wcartstoreback.dto.in.ReturnApplyInDTO;
+import io.wjh.wcartstoreback.dto.out.PageOutDTO;
+import io.wjh.wcartstoreback.dto.out.ReturnListOutDTO;
 import io.wjh.wcartstoreback.enumeration.ReturnStatus;
 import io.wjh.wcartstoreback.po.Return;
 import io.wjh.wcartstoreback.service.ReturnService;
@@ -8,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/return")
@@ -40,6 +45,29 @@ public class ReturnController {
         returnService.create(aReturn);
         Integer returnId = aReturn.getReturnId();
         return returnId;
+    }
+
+    @GetMapping("/getList")
+    public PageOutDTO<ReturnListOutDTO> getList(@RequestAttribute Integer customerId,
+                                                @RequestParam Integer pageNum){
+       Page<Return> returnList= returnService.getList(customerId,pageNum);
+        List<ReturnListOutDTO> returnLists = returnList.stream().map(aReturn -> {
+            ReturnListOutDTO returnListOutDTO = new ReturnListOutDTO();
+            returnListOutDTO.setReturnId(aReturn.getReturnId());
+            returnListOutDTO.setOrderId(aReturn.getOrderId());
+            returnListOutDTO.setCustomerId(aReturn.getCustomerId());
+            returnListOutDTO.setCustomerName(aReturn.getCustomerName());
+            returnListOutDTO.setStatus(aReturn.getStatus());
+            returnListOutDTO.setCreateTimestamp(aReturn.getCreateTime().getTime());
+            return returnListOutDTO;
+        }).collect(Collectors.toList());
+
+        PageOutDTO<ReturnListOutDTO> returnListOutDTOPageOutDTO = new PageOutDTO<>();
+        returnListOutDTOPageOutDTO.setList(returnLists);
+        returnListOutDTOPageOutDTO.setPageSize(returnList.getPageSize());
+        returnListOutDTOPageOutDTO.setTotal(returnList.getTotal());
+        returnListOutDTOPageOutDTO.setPageNum(returnList.getPageNum());
+        return returnListOutDTOPageOutDTO;
     }
 
 }

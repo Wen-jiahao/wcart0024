@@ -49,12 +49,10 @@
       #{reason,jdbcType=TINYINT}, #{opened,jdbcType=BIT}, #{comment,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="io.wjh.wcartstoreback.po.Return">
+  <insert id="insertSelective" parameterType="io.wjh.wcartstoreback.po.Return" useGeneratedKeys="true" keyProperty="returnId">
     insert into jcart_return
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="returnId != null">
-        return_id,
-      </if>
+
       <if test="orderId != null">
         order_id,
       </if>

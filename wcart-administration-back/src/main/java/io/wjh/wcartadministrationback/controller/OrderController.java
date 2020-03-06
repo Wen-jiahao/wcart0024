@@ -4,7 +4,9 @@ import com.github.pagehelper.Page;
 import com.sun.org.apache.regexp.internal.RE;
 import io.wjh.wcartadministrationback.dto.in.OrderSearchInDTO;
 import io.wjh.wcartadministrationback.dto.out.*;
+import io.wjh.wcartadministrationback.po.Customer;
 import io.wjh.wcartadministrationback.po.Order;
+import io.wjh.wcartadministrationback.service.CustomerService;
 import io.wjh.wcartadministrationback.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -24,10 +26,13 @@ public class OrderController {
 
     @Autowired
     private OrderService orderService;
+    @Autowired
+    private CustomerService customerService;
 
      @GetMapping("/search")
     public PageOutDTO<OrderListOutDTD> search( OrderSearchInDTO orderSearchInDTO, @RequestParam(defaultValue = "1",required = false) Integer pageNum){
          Page<Order>  orderListpage= orderService.search(pageNum);
+
          PageOutDTO<OrderListOutDTD> orderListOutDTDPageOutDTO = new PageOutDTO<>();
          orderListOutDTDPageOutDTO.setPageSize(orderListpage.getPageSize());
          orderListOutDTDPageOutDTO.setPageNum(orderListpage.getPageNum());
@@ -35,7 +40,8 @@ public class OrderController {
          List<OrderListOutDTD> collect = orderListpage.stream().map(orderList -> {
              OrderListOutDTD orderListOutDTD = new OrderListOutDTD();
              orderListOutDTD.setCreateTime(orderList.getCreateTime().getTime());
-             orderListOutDTD.setCustomerId(orderList.getCustomerId());
+             Customer customer = customerService.getById(orderList.getCustomerId());
+             orderListOutDTD.setCustomerName(customer.getRealName());
              orderListOutDTD.setOrderId(orderList.getOrderId());
              orderListOutDTD.setStatus(orderList.getStatus());
              orderListOutDTD.setTotalPrice(orderList.getTotalPrice());

@@ -7,7 +7,15 @@ public class OrderListOutDTD {
     private Double totalPrice;
     private Long createTime;
     private Long updateTime;
+    private String customerName;
 
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 
     public Long getOrderId() {
         return orderId;

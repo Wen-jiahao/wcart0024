@@ -9,4 +9,6 @@ public interface ReturnService {
     void create(Return aReturn);
 
     Page<Return> getList(Integer customerId, Integer pageNum);
+
+    Return getById(Integer returnId);
 }

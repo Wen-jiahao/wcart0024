@@ -17,7 +17,13 @@ var app = new Vue({
         opened: '',
         comment: '',
         createTimestamp: '',
-        updateTimestamp: ''
+        updateTimestamp: '',
+        action:'',
+        selectaction:[
+            { value: 0, label: '退货' },
+            { value: 1, label: '换货' },
+            { value: 2, label: '修理' }
+        ]
     },
     mounted() {
         console.log('view mounted');
@@ -32,6 +38,21 @@ var app = new Vue({
         this.getReturnById();
     },
     methods: {
+        handleUpdateAction(){
+            this.updateActiom();
+        },
+        updateActiom(){
+            axios.post('/return/updateAction', {
+                action:this.action,
+                returnId: this.returnId,
+            })
+                .then(function (response) {
+                    console.log('创建成功');
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
         getReturnById() {
             axios.get('/return/getById', {
                 params: {

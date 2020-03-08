@@ -25,17 +25,18 @@ public class ReturnController {
         2.return show（returnhistory list）
          3.	return action update
         4.	returnhistory create*/
-    @GetMapping("search")
-    public PageOutDTO<ReturnListOutDTO> search(@RequestBody ReturnSearchInDTO returnSearchInDTO, @RequestParam(required = false, defaultValue = "1") Integer pageNum){
+    @GetMapping("/search")
+    public PageOutDTO<ReturnListOutDTO> search(ReturnSearchInDTO returnSearchInDTO, @RequestParam(required = false, defaultValue = "1") Integer pageNum){
         Page<Return> returns=returnService.search(returnSearchInDTO,pageNum);
         List<ReturnListOutDTO> returnList = returns.stream().map(aReturn -> {
             ReturnListOutDTO returnListOutDTO = new ReturnListOutDTO();
+            returnListOutDTO.setProductName(aReturn.getProductName());
             returnListOutDTO.setCreateTime(aReturn.getCreateTime().getTime());
             returnListOutDTO.setCustomerId(aReturn.getCustomerId());
             returnListOutDTO.setCustomerName(aReturn.getCustomerName());
             returnListOutDTO.setOrderId(aReturn.getOrderId());
             returnListOutDTO.setProductCode(aReturn.getProductCode());
-            returnListOutDTO.setCreateTime(aReturn.getCreateTime().getTime());
+            returnListOutDTO.setUpdateTime(aReturn.getUpdateTime().getTime());
             returnListOutDTO.setReturnId(aReturn.getReturnId());
             returnListOutDTO.setStatus(aReturn.getStatus());
             return returnListOutDTO;

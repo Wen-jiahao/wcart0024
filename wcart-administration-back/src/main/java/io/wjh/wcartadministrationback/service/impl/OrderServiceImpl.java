@@ -60,4 +60,9 @@ public class OrderServiceImpl implements OrderService {
         orderShowOutDTO.setOrderProducts(orderProductShowOutDTOS);
         return orderShowOutDTO;
     }
+
+    @Override
+    public void update(Order order) {
+        orderMapper.updateByPrimaryKeySelective(order);
+    }
 }

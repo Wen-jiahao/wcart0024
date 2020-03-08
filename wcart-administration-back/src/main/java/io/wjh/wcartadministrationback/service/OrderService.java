@@ -11,4 +11,7 @@ public interface OrderService {
 
 
     OrderShowOutDTO getById(Long orderId);
+
+    //修改订单的状态
+    void update(Order order);
 }

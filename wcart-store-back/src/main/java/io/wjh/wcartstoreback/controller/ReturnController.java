@@ -81,6 +81,7 @@ public class ReturnController {
         //获取退货信息
         Return aReturn= returnService.getById(returnId);
         ReturnShowOutDTO returnShowOutDTO = new ReturnShowOutDTO();
+        returnShowOutDTO.setComment(aReturn.getComment());
         returnShowOutDTO.setReturnId(aReturn.getReturnId());
         returnShowOutDTO.setOrderId(aReturn.getOrderId());
         returnShowOutDTO.setOrderTimestamp(aReturn.getOrderTime().getTime());

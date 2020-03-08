@@ -3,17 +3,17 @@ package io.wjh.wcartadministrationback.dto.out;
 import org.omg.CORBA.PRIVATE_MEMBER;
 
 public class ReturnHistoryListOutDTO {
-    private Integer returnHistoryId;
+    private Long returnHistoryId;
     private Long timestamp;
     private Byte returnStatus;
     private String comment;
     private Boolean customerNotify;
 
-    public Integer getReturnHistoryId() {
+    public Long getReturnHistoryId() {
         return returnHistoryId;
     }
 
-    public void setReturnHistoryId(Integer returnHistoryId) {
+    public void setReturnHistoryId(Long returnHistoryId) {
         this.returnHistoryId = returnHistoryId;
     }
 

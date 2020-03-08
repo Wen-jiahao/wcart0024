@@ -78,6 +78,7 @@ public class ReturnController {
     }
     @GetMapping("/getById")
     public ReturnShowOutDTO getById(@RequestParam Integer returnId) {
+        //获取退货信息
         Return aReturn= returnService.getById(returnId);
         ReturnShowOutDTO returnShowOutDTO = new ReturnShowOutDTO();
         returnShowOutDTO.setReturnId(aReturn.getReturnId());
@@ -95,6 +96,7 @@ public class ReturnController {
         returnShowOutDTO.setOpened(aReturn.getOpened());
         returnShowOutDTO.setCreateTimestamp(aReturn.getCreateTime().getTime());
         returnShowOutDTO.setUpdateTimestamp(aReturn.getUpdateTime().getTime());
+        //根据returnId获取退货历史
         List<ReturnHistory> returnHistories = returnHistoryService.getByReturnId(returnId);
         List<ReturnHistoryListOutDTO> returnHistoryListOutDTOS = returnHistories.stream().map(returnHistory -> {
             ReturnHistoryListOutDTO returnHistoryListOutDTO = new ReturnHistoryListOutDTO();

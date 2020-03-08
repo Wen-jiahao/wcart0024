@@ -7,7 +7,7 @@ public class ReturnListOutDTO {
     private String customerName;
     private String productName;
     private String productCode;
-    private String status;
+    private Byte status;
     private Long createTime;
     private  Long updateTime;
 
@@ -59,11 +59,11 @@ public class ReturnListOutDTO {
         this.productCode = productCode;
     }
 
-    public String getStatus() {
+    public Byte getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Byte status) {
         this.status = status;
     }
 

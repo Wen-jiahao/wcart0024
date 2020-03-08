@@ -237,6 +237,7 @@
     <include refid="Base_Column_List" />
     from jcart_return
     where customer_id = #{customerId,jdbcType=INTEGER}
+    order by create_time desc
   </select>
 
 

@@ -1,5 +1,7 @@
 package io.wjh.wcartadministrationback.dto.in;
 
+import sun.rmi.runtime.Log;
+
 public class ReturnSearchInDTO {
     private Integer returnId;
     private Long orderId;
@@ -8,6 +10,24 @@ public class ReturnSearchInDTO {
     private String productName;
     private String productCode;
     private String status;
+    private Long startTimestamp;
+    private Long endTimestamp;
+
+    public Long getStartTimestamp() {
+        return startTimestamp;
+    }
+
+    public void setStartTimestamp(Long startTimestamp) {
+        this.startTimestamp = startTimestamp;
+    }
+
+    public Long getEndTimestamp() {
+        return endTimestamp;
+    }
+
+    public void setEndTimestamp(Long endTimestamp) {
+        this.endTimestamp = endTimestamp;
+    }
 
     public Integer getReturnId() {
         return returnId;

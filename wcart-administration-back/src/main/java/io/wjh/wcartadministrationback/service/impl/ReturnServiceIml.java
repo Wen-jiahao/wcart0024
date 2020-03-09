@@ -11,6 +11,9 @@ import io.wjh.wcartadministrationback.service.ReturnService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
+
 @Service
 public class ReturnServiceIml implements ReturnService {
     @Autowired
@@ -22,7 +25,16 @@ public class ReturnServiceIml implements ReturnService {
     @Override
     public Page<Return> search(ReturnSearchInDTO returnSearchInDTO, Integer pageNum) {
         PageHelper.startPage(pageNum,10);
-        Page<Return> page=returnMapper.search(returnSearchInDTO);
+        Integer customerId = returnSearchInDTO.getCustomerId();
+        String customerName = returnSearchInDTO.getCustomerName();
+        Long orderId = returnSearchInDTO.getOrderId();
+        String productCode = returnSearchInDTO.getProductCode();
+        String productName = returnSearchInDTO.getProductName();
+        Integer returnId = returnSearchInDTO.getReturnId();
+        String status = returnSearchInDTO.getStatus();
+       Date startTime= returnSearchInDTO.getStartTimestamp()==null? null : new Date(returnSearchInDTO.getStartTimestamp());
+        Date endTime= returnSearchInDTO.getEndTimestamp()==null? null : new Date(returnSearchInDTO.getEndTimestamp());
+        Page<Return> page=returnMapper.search(customerId,customerName,orderId,productCode,productName,returnId,status,startTime,endTime);
         return page;
     }
 

@@ -216,7 +216,7 @@
     from jcart_customer
 
     <where>
-      (@Param("username") String username, @Param("realname")String realname,@Param("mobile") String mobile, @Param("email")String email, @Param("status")Byte status);
+
       <if test="username !=null and  username!=''">
         username =#{username}
       </if>

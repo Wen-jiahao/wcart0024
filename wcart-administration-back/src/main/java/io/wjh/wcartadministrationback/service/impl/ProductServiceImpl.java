@@ -105,7 +105,9 @@ public class ProductServiceImpl implements ProductService {
         String productCode = productSearchInDTO.getProductCode();
         Byte status = productSearchInDTO.getStatus();
         Integer stockQuantity = productSearchInDTO.getStockQuantity();
-        Page<ProductListOutDTO> page=productMapper.search(productCode,status,stockQuantity);
+        Double price = productSearchInDTO.getPrice();
+        String productName = productSearchInDTO.getProductName();
+        Page<ProductListOutDTO> page=productMapper.search(productCode,status,stockQuantity,price,productName);
         return page;
     }
 

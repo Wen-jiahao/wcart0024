@@ -46,4 +46,6 @@ public class ProductSearchInDTO {
     public void setStockQuantity(Integer stockQuantity) {
         this.stockQuantity = stockQuantity;
     }
+
+
 }

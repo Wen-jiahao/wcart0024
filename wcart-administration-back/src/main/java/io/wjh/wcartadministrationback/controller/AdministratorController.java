@@ -13,10 +13,19 @@ import io.wjh.wcartadministrationback.po.Administrator;
 import io.wjh.wcartadministrationback.service.AdministratorService;
 import io.wjh.wcartadministrationback.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.SimpleMailMessage;
 
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.web.bind.annotation.*;
+import sun.security.provider.SecureRandom;
+
+
+import javax.xml.bind.DatatypeConverter;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /*
@@ -43,6 +52,17 @@ public class AdministratorController {
 
     @Autowired
     private JWTUtil jwtUtil;
+    @Autowired
+    private SecureRandom secureRandom;
+    @Autowired
+    private JavaMailSender mailSender;
+
+    @Value("spring.mail.username")
+    private String formEmain;
+
+
+    private Map<String,String> emailPwdRestMap=new HashMap<>();
+
 
     @GetMapping("/login")
     //创建
@@ -88,13 +108,26 @@ public class AdministratorController {
         administrator.setEmail(administratorUpdatefileDTO.getEmail());
         administratorService.updateProfile(administrator);
     }
+    //获取重置码
     @GetMapping("/getPwdResetCode")
-    public String  getPwdResetCode(@RequestParam String email){
-        return null;
+    public void   getPwdResetCode(@RequestParam String email){
+        //生成随机数据
+        byte[] bytes = secureRandom.engineGenerateSeed(3);
+        //转换为16进制的字符串
+        String str = DatatypeConverter.printHexBinary(bytes);
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom(formEmain);
+        message.setTo(email);
+        message.setSubject("jcart管理员密码重置");
+        message.setText(str);
+        mailSender.send(message);
+        //发送邮件
+        emailPwdRestMap.put(email,str);
     }
     @PostMapping("/resetPwd")
     public void  resetPwd(@RequestBody AdministratorResetPwd administratorResetPwd){
-
+        String email = administratorResetPwd.getEmail();
+        if ()
     }
     @GetMapping("/getList")
     public PageOutDTO<AdministratorListDTO> getList(@RequestParam(required = false, defaultValue = "1") Integer pageNum){

@@ -24,7 +24,7 @@ public class ProductController {
     @GetMapping("/search")
     public PageOutDTO<ProductListOutDTO> search(ProductSearchInDTO productSearchInDTO,@RequestParam(required = false,defaultValue = "1") Integer pageNum){
 
-        Page<ProductListOutDTO> page= productService.search(pageNum);
+        Page<ProductListOutDTO> page= productService.search(pageNum,productSearchInDTO);
         PageOutDTO<ProductListOutDTO> objectPageOutDTO = new PageOutDTO<>();
         objectPageOutDTO.setList(page);
         objectPageOutDTO.setPageNum(page.getPageNum());

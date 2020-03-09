@@ -3,6 +3,7 @@ package io.wjh.wcartadministrationback.dao;
 import com.github.pagehelper.Page;
 import io.wjh.wcartadministrationback.dto.out.CustomerListOutDTO;
 import io.wjh.wcartadministrationback.po.Customer;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -21,5 +22,6 @@ public interface CustomerMapper {
 
     Page<CustomerListOutDTO> search(Integer pageNum);
 
-    Page<Customer> searchCustomer();
+
+    Page<Customer> searchCustomer(@Param("username") String username, @Param("realname")String realname,@Param("mobile") String mobile, @Param("email")String email, @Param("status")Byte status);
 }

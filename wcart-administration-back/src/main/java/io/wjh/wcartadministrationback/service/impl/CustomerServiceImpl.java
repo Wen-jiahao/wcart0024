@@ -3,6 +3,7 @@ package io.wjh.wcartadministrationback.service.impl;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import io.wjh.wcartadministrationback.dao.CustomerMapper;
+import io.wjh.wcartadministrationback.dto.in.CustomerSearchInDTO;
 import io.wjh.wcartadministrationback.dto.in.CustomerSetStatusInDTO;
 import io.wjh.wcartadministrationback.dto.out.CustomerListOutDTO;
 import io.wjh.wcartadministrationback.po.Customer;
@@ -24,9 +25,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public Page<Customer> searchCustomer(Integer pageNum) {
+    public Page<Customer> searchCustomer(Integer pageNum, CustomerSearchInDTO customerSearchInDTO) {
         PageHelper.startPage(pageNum,10);
-        Page<Customer>  page=customerMapper.searchCustomer();
+        Page<Customer>  page=customerMapper.searchCustomer(customerSearchInDTO.getUsername(),
+                customerSearchInDTO.getRealname(),
+                customerSearchInDTO.getMobile(),
+                customerSearchInDTO.getEmail(),
+                customerSearchInDTO.getStatus());
         return page;
     }
 

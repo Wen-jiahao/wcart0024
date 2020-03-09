@@ -214,5 +214,26 @@
     select
     <include refid="Base_Column_List"/>
     from jcart_customer
+
+    <where>
+      (@Param("username") String username, @Param("realname")String realname,@Param("mobile") String mobile, @Param("email")String email, @Param("status")Byte status);
+      <if test="username !=null and  username!=''">
+        username =#{username}
+      </if>
+
+      <if test="mobile != null and  mobile!=''">
+        AND mobile = #{mobile}
+      </if>
+      <if test="email != null and  email!=''">
+        AND email = #{email}
+      </if>
+      <if test="status != null and  status!=''">
+        AND status = #{status}
+      </if>
+      AND u.birthday = #{birthday, jdbcType=DATE}
+      <if test="realname != null and  realname!=''">
+        real_name LIKE CONCAT(CONCAT('%', #{realname}),'%')
+      </if>
+    </where>
   </select>
 </mapper>

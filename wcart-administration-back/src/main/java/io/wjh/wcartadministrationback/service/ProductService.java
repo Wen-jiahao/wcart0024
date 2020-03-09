@@ -2,6 +2,7 @@ package io.wjh.wcartadministrationback.service;
 
 import com.github.pagehelper.Page;
 import io.wjh.wcartadministrationback.dto.in.ProductCreateDTO;
+import io.wjh.wcartadministrationback.dto.in.ProductSearchInDTO;
 import io.wjh.wcartadministrationback.dto.in.ProductUpdateDTO;
 import io.wjh.wcartadministrationback.dto.out.ProductListOutDTO;
 import io.wjh.wcartadministrationback.dto.out.ProductShowOutDTO;
@@ -21,7 +22,7 @@ public interface ProductService {
 
     void batchDelete(List<Integer> productIds);
 
-    Page<ProductListOutDTO> search(Integer pageNum);
+    Page<ProductListOutDTO> search(Integer pageNum, ProductSearchInDTO productSearchInDTO);
 
     ProductShowOutDTO getById(Integer productId);
 }

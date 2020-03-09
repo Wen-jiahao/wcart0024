@@ -2,10 +2,7 @@ package io.wjh.wcartstoreback.controller;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import io.wjh.wcartstoreback.constant.ClientExceptionConstant;
-import io.wjh.wcartstoreback.dto.in.CustomerChangePwdInDTO;
-import io.wjh.wcartstoreback.dto.in.CustomerLoginInDTO;
-import io.wjh.wcartstoreback.dto.in.CustomerRegisterInDTO;
-import io.wjh.wcartstoreback.dto.in.CustomerUpdateProfileInDTO;
+import io.wjh.wcartstoreback.dto.in.*;
 import io.wjh.wcartstoreback.dto.out.CustomerGetProfileOutDTO;
 import io.wjh.wcartstoreback.dto.out.CustomerLoginOutDTO;
 import io.wjh.wcartstoreback.exception.ClientException;
@@ -33,11 +30,13 @@ public class CustomerController {
     @Autowired
     private JWTUtil jwtUtil;
 
-   /* @Autowired
+    @Autowired
     private SecureRandom secureRandom;
 
     @Autowired
-    private JavaMailSender mailSender;*/
+    private JavaMailSender mailSender;
+    @Value("spring.mail.username")
+    private String formEmain;
 
     private HashMap<String, String> emailPwdResetCodeMap = new HashMap();
 
@@ -107,7 +106,7 @@ public class CustomerController {
 
     }
 
-/*    @GetMapping("/getPwdResetCode")
+    @GetMapping("/getPwdResetCode")
     public void getPwdResetCode(@RequestParam String email) throws ClientException {
         Customer customer = customerService.getByEmail(email);
         if (customer == null){
@@ -116,17 +115,44 @@ public class CustomerController {
         byte[] bytes = secureRandom.generateSeed(3);
         String hex = DatatypeConverter.printHexBinary(bytes);
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(fromEmail);
+        message.setFrom(formEmain);
         message.setTo(email);
         message.setSubject("jcart重置密码");
         message.setText(hex);
         mailSender.send(message);
         emailPwdResetCodeMap.put("PwdResetCode"+email, hex);
-    }*/
+    }
 
- /*   @PostMapping("/resetPwd")
-    public void resetPwd(@RequestBody CustomerResetPwdInDTO customerResetPwdInDTO){
+   @PostMapping("/resetPwd")
+    public void resetPwd(@RequestBody CustomerResetPwdInDTO customerResetPwdInDTO) throws ClientException {
+       String email = customerResetPwdInDTO.getEmail();
+       if (email == null) {
+           throw new ClientException(ClientExceptionConstant.CUSTOMER_PWDRESET_EMAIL_NONE_ERRCODE, ClientExceptionConstant.CUSTOMER_PWDRESET_EMAIL_NONE_ERRMSG);
+       }
+       String innerResetCode = emailPwdResetCodeMap.get(email);
+       if (innerResetCode == null) {
+           throw new ClientException(ClientExceptionConstant.CUSTOMER_PWDRESET_INNER_RESETCODE_NONE_ERRCODE, ClientExceptionConstant.CUSTOMER_PWDRESET_INNER_RESETCODE_NONE_ERRMSG);
+       }
+       String outerResetCode = customerResetPwdInDTO.getResetCode();
+       if (outerResetCode == null) {
+           throw new ClientException(ClientExceptionConstant.CUSTOMER_PWDRESET_OUTER_RESETCODE_NONE_ERRCODE, ClientExceptionConstant.CUSTOMER_PWDRESET_OUTER_RESETCODE_NONE_ERRMSG);
+       }
+       if (!outerResetCode.equalsIgnoreCase(innerResetCode)){
+           throw new ClientException(ClientExceptionConstant.CUSTOMER_PWDRESET_RESETCODE_INVALID_ERRCODE, ClientExceptionConstant.CUSTOMER_PWDRESET_RESETCODE_INVALID_ERRMSG);
+       }
+       Customer customer = customerService.getByEmail(email);
+       if (customer == null){
+           throw new ClientException(ClientExceptionConstant.CUSTOMER_EMAIL_NOT_EXIST_ERRCODE, ClientExceptionConstant.CUSTOMER_EMAIL_NOT_EXIST_ERRMSG);
+       }
 
-    }*/
+       String newPwd = customerResetPwdInDTO.getNewPwd();
+       if (newPwd == null){
+           throw new ClientException(ClientExceptionConstant.CUSTOMER_NEWPWD_NOT_EXIST_ERRCODE, ClientExceptionConstant.CUSTOMER_NEWPWD_NOT_EXIST_ERRMSG);
+       }
+       String bcryptHashString = BCrypt.withDefaults().hashToString(12, newPwd.toCharArray());
+       customer.setEncryptedPassword(bcryptHashString);
+       customerService.update(customer);
+       emailPwdResetCodeMap.remove(email);
+   }
 
 }

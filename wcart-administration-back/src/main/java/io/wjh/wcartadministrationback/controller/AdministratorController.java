@@ -15,10 +15,10 @@ import io.wjh.wcartadministrationback.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
-
+import java.security.SecureRandom;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.web.bind.annotation.*;
-import sun.security.provider.SecureRandom;
+
 
 
 import javax.xml.bind.DatatypeConverter;
@@ -52,8 +52,8 @@ public class AdministratorController {
 
     @Autowired
     private JWTUtil jwtUtil;
-    @Autowired
-    private SecureRandom secureRandom;
+   @Autowired
+   private SecureRandom secureRandom;
     @Autowired
     private JavaMailSender mailSender;
 
@@ -110,20 +110,21 @@ public class AdministratorController {
     }
     //获取重置码
     @GetMapping("/getPwdResetCode")
-    public void   getPwdResetCode(@RequestParam String email){
+    public void   getPwdResetCode(@RequestParam String email) throws ClientException {
+        Administrator administrator = administratorService.getByEmail(email);
+        if(administrator==null){
+            throw new ClientException(ClientExceptionConstant.ADMINISTRATOR_EMAIL_NOT_EXIST_ERRCODE,ClientExceptionConstant.ADMINISTRATOR_EMAIL_NOT_EXIST_ERRMSG);
+        }
         //生成随机数据
-        byte[] bytes = secureRandom.engineGenerateSeed(3);
-        //转换为16进制的字符串
-        String str = DatatypeConverter.printHexBinary(bytes);
+        byte[] bytes = secureRandom.generateSeed(3);
+        String hex = DatatypeConverter.printHexBinary(bytes);
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(formEmain);
         message.setTo(email);
-        message.setSubject("jcart管理员密码重置");
-        message.setText(str);
+        message.setSubject("jcart管理端管理员密码重置");
+        message.setText(hex);
         mailSender.send(message);
-        emailPwdRestMap.put(email,str);
-        //发送邮件
-        emailPwdRestMap.put(email,str);
+        emailPwdRestMap.put(email, hex);
     }
     @PostMapping("/resetPwd")
     public void  resetPwd(@RequestBody AdministratorResetPwd administratorResetPwd) throws ClientException {

@@ -7,6 +7,7 @@ public class AdministratorResetPwd {
     private  String newPwd;
 
 
+
     public String getEmail() {
         return email;
     }

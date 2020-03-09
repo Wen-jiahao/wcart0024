@@ -121,13 +121,43 @@ public class AdministratorController {
         message.setSubject("jcart管理员密码重置");
         message.setText(str);
         mailSender.send(message);
+        emailPwdRestMap.put(email,str);
         //发送邮件
         emailPwdRestMap.put(email,str);
     }
     @PostMapping("/resetPwd")
-    public void  resetPwd(@RequestBody AdministratorResetPwd administratorResetPwd){
+    public void  resetPwd(@RequestBody AdministratorResetPwd administratorResetPwd) throws ClientException {
         String email = administratorResetPwd.getEmail();
-        if ()
+        if (email==null){
+            throw  new ClientException(ClientExceptionConstant.ADNINISTRATOR_PWDRESET_EMAIL_NONE_ERRCODE,ClientExceptionConstant.ADNINISTRATOR_PWDRESET_EMAIL_NONE_ERRMSG);
+        }
+        String innerResetCode = emailPwdRestMap.get(email);
+        if (innerResetCode == null) {
+            throw new ClientException(ClientExceptionConstant.ADNINISTRATOR_PWDRESET_INNER_RESETCODE_NONE_ERRCODE, ClientExceptionConstant.ADNINISTRATOR_PWDRESET_INNER_RESETCODE_NONE_ERRMSG);
+        }
+        //判断是否为空
+        String outerResetCode = administratorResetPwd.getRestCode();
+        if (outerResetCode == null) {
+            throw new ClientException(ClientExceptionConstant.ADNINISTRATOR_PWDRESET_OUTER_RESETCODE_NONE_ERRCODE, ClientExceptionConstant.ADNINISTRATOR_PWDRESET_OUTER_RESETCODE_NONE_ERRMSG);
+        }
+        //比较
+        if (!outerResetCode.equalsIgnoreCase(innerResetCode)){
+            throw new ClientException(ClientExceptionConstant.ADNINISTRATOR_PWDRESET_RESETCODE_INVALID_ERRCODE, ClientExceptionConstant.ADNINISTRATOR_PWDRESET_RESETCODE_INVALID_ERRMSG);
+        }
+        Administrator administrator = administratorService.getByEmail(email);
+        if (administrator == null){
+            throw new ClientException(ClientExceptionConstant.ADMINISTRATOR_EMAIL_NOT_EXIST_ERRCODE, ClientExceptionConstant.ADMINISTRATOR_EMAIL_NOT_EXIST_ERRMSG);
+        }
+        String newPwd = administratorResetPwd.getNewPwd();
+        if (newPwd == null){
+            throw new ClientException(ClientExceptionConstant.ADMINISTRATOR_NEWPWD_NOT_EXIST_ERRCODE, ClientExceptionConstant.ADMINISTRATOR_NEWPWD_NOT_EXIST_ERRMSG);
+        }
+        String bcryptHashString = BCrypt.withDefaults().hashToString(12, newPwd.toCharArray());
+        administrator.setEncryptedPassword(bcryptHashString);
+        administratorService.updates(administrator);
+        emailPwdRestMap.remove(email);
+
+
     }
     @GetMapping("/getList")
     public PageOutDTO<AdministratorListDTO> getList(@RequestParam(required = false, defaultValue = "1") Integer pageNum){

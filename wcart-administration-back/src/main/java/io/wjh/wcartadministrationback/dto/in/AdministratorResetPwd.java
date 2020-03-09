@@ -6,6 +6,7 @@ public class AdministratorResetPwd {
     private  String restCode;
     private  String newPwd;
 
+
     public String getEmail() {
         return email;
     }

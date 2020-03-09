@@ -22,4 +22,8 @@ public interface AdministratorService {
     void updateProfile(Administrator administrator);
 
     Page<Administrator> getList(Integer pageNum);
+
+    void updates(Administrator administrator);
+
+    Administrator getByEmail(String email);
 }

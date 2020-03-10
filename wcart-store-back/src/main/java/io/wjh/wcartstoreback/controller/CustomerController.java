@@ -35,7 +35,7 @@ public class CustomerController {
 
     @Autowired
     private JavaMailSender mailSender;
-    @Value("spring.mail.username")
+    @Value("${spring.mail.username}")
     private String formEmain;
 
     private HashMap<String, String> emailPwdResetCodeMap = new HashMap();

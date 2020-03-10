@@ -27,11 +27,6 @@ var app = new Vue({
             this.pageNum=1;
             this.searchReturn();
         },
-        handlePageChange(val) {
-            console.log('page changed', val);
-            this.pageNum = val;
-            this.searchReturn();
-        },
         handleClearClick(){
             this.returnId = '';
             this.orderId = '';
@@ -42,6 +37,12 @@ var app = new Vue({
             this.startTime = '';
             this.endTime = '';
         },
+        handlePageChange(val) {
+            console.log('page changed', val);
+            this.pageNum = val;
+            this.searchReturn();
+        },
+       
         searchReturn() {
             axios.get('/return/search', {
                 params: {

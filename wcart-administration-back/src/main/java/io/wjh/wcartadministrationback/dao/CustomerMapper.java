@@ -23,5 +23,9 @@ public interface CustomerMapper {
     Page<CustomerListOutDTO> search(Integer pageNum);
 
 
-    Page<Customer> searchCustomer(@Param("username") String username, @Param("realname")String realname,@Param("mobile") String mobile, @Param("email")String email, @Param("status")Byte status);
+    Page<Customer> searchCustomer(@Param("username") String username,
+                                  @Param("realname")String realname,
+                                  @Param("mobile") String mobile,
+                                  @Param("email")String email,
+                                  @Param("status")Byte status);
 }

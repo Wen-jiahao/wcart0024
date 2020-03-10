@@ -230,7 +230,6 @@
       <if test="status != null and  status!=''">
         AND status = #{status}
       </if>
-      AND u.birthday = #{birthday, jdbcType=DATE}
       <if test="realname != null and  realname!=''">
         real_name LIKE CONCAT(CONCAT('%', #{realname}),'%')
       </if>

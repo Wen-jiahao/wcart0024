@@ -236,7 +236,7 @@
   <select id="search"  resultMap="BaseResultMap">
     select
     <include refid="Base_Column_List" />
-    from jcart_return order by create_time desc
+    from jcart_return
     <where>
       <if test="returnId != null">
         return_id = #{returnId}

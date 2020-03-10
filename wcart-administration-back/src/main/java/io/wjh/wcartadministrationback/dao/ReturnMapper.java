@@ -27,8 +27,8 @@ public interface ReturnMapper {
                         @Param("orderId")Long orderId,
                         @Param("productCode")String productCode,
                         @Param("productName")String productName,
-                        @Param("customerId")Integer returnId,
-                        String status,@Param("startTime") Date startTime,
+                        @Param("returnId")Integer returnId,
+                        @Param("status") String status,@Param("startTime") Date startTime,
                         @Param("endTime")Date endTime);
 
     /* Page<Return> search(Integer customerId, String customerName, Long orderId, String productCode, String productName, Integer returnId, String status);

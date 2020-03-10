@@ -20,7 +20,7 @@ var app = new Vue({
         resetAdministratorPwd() {
             axios.post('/administrator/resetPwd', {
                 email: this.email,
-                resetCode: this.resetCode,
+                restCode: this.resetCode,
                 newPwd: this.newPwd
             })
                 .then(function (response) {

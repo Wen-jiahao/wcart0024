@@ -57,9 +57,8 @@ public class AdministratorController {
     @Autowired
     private JavaMailSender mailSender;
 
-    @Value("spring.mail.username")
-    private String formEmain;
-
+    @Value("${spring.mail.username}")
+    private String fromEmail;
 
     private Map<String,String> emailPwdRestMap=new HashMap<>();
 
@@ -119,7 +118,7 @@ public class AdministratorController {
         byte[] bytes = secureRandom.generateSeed(3);
         String hex = DatatypeConverter.printHexBinary(bytes);
         SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(formEmain);
+        message.setFrom(fromEmail);
         message.setTo(email);
         message.setSubject("jcart管理端管理员密码重置");
         message.setText(hex);

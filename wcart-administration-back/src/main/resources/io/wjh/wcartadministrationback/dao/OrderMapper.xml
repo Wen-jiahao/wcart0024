@@ -114,9 +114,41 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where order_id = #{orderId,jdbcType=BIGINT}
   </update>
-  <select id="searchOrderList" resultMap="BaseResultMap">
-    select
-    <include refid="Base_Column_List"/>
-    from jcart_order
+  <resultMap id="OrderList" type="io.wjh.wcartadministrationback.dto.out.OrderListOutDTD">
+    <id column="order_id" jdbcType="BIGINT" property="orderId" />
+    <result column="customer_id" jdbcType="INTEGER" property="customerId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
+    <result column="create_time"  property="createTime" />
+    <result column="update_time"  property="updateTime" />
+    <result column="real_name"  property="customerName" />
+  </resultMap>
+
+  <select id="searchOrderList" resultMap="OrderList">
+        SELECT o.*,c.`real_name`  FROM `jcart_order` AS o
+    LEFT JOIN `jcart_customer` AS c
+    ON o.`customer_id`=c.`customer_id`
+    <where>
+      <if test="orderId != null">
+        AND order_id = #{orderId}
+      </if>
+      <if test="createTime != null">
+        AND o.create_time >= #{createTime}
+      </if>
+      <if test="endTime != null ">
+        AND o.create_time &lt;= #{endTime}
+      </if>
+      <if test="status != null">
+        AND o.status = #{status}
+      </if>
+      <if test="totalPrice != null ">
+        AND total_price > #{totalPrice}
+      </if>
+      <if test="customerName != null and customerName != ''">
+        AND real_name like concat('%',#{customerName},'%')
+      </if>
+    </where>
+    ORDER BY o.`create_time` DESC
+
   </select>
 </mapper>

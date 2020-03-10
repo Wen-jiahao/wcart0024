@@ -3,10 +3,27 @@ package io.wjh.wcartadministrationback.dto.in;
 public class OrderSearchInDTO {
     private Integer orderId;
     private  Integer customerId;
+    private String customerName;
     private Byte status;
     private Double totalPrice;
     private Long createTime;
-    private Long updateTime;
+    private Long endTime;
+
+    public Long getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Long endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getCustomerName() {
+        return customerName;
+    }
+
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
+    }
 
     public Integer getOrderId() {
         return orderId;
@@ -48,11 +65,4 @@ public class OrderSearchInDTO {
         this.createTime = createTime;
     }
 
-    public Long getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Long updateTime) {
-        this.updateTime = updateTime;
-    }
 }

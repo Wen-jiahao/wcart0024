@@ -31,9 +31,9 @@ public class OrderController {
 
      @GetMapping("/search")
     public PageOutDTO<OrderListOutDTD> search( OrderSearchInDTO orderSearchInDTO, @RequestParam(defaultValue = "1",required = false) Integer pageNum){
-         Page<Order>  orderListpage= orderService.search(pageNum);
+         Page<OrderListOutDTD>  orderListpage= orderService.search(orderSearchInDTO,pageNum);
 
-         PageOutDTO<OrderListOutDTD> orderListOutDTDPageOutDTO = new PageOutDTO<>();
+        /* PageOutDTO<OrderListOutDTD> orderListOutDTDPageOutDTO = new PageOutDTO<>();
          orderListOutDTDPageOutDTO.setPageSize(orderListpage.getPageSize());
          orderListOutDTDPageOutDTO.setPageNum(orderListpage.getPageNum());
          orderListOutDTDPageOutDTO.setTotal(orderListpage.getTotal());
@@ -49,6 +49,12 @@ public class OrderController {
              return orderListOutDTD;
          }).collect(Collectors.toList());
          orderListOutDTDPageOutDTO.setList(collect);
+         return orderListOutDTDPageOutDTO;*/
+         PageOutDTO<OrderListOutDTD> orderListOutDTDPageOutDTO = new PageOutDTO<>();
+         orderListOutDTDPageOutDTO.setList(orderListpage.getResult());
+         orderListOutDTDPageOutDTO.setTotal(orderListpage.getTotal());
+         orderListOutDTDPageOutDTO.setPageNum(orderListpage.getPageNum());
+         orderListOutDTDPageOutDTO.setPageSize(orderListpage.getPageSize());
          return orderListOutDTDPageOutDTO;
      }
     @GetMapping("/getById")

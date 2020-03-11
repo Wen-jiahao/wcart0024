@@ -2,7 +2,7 @@ var app = new Vue({
     el: '#app',
     data: {
         customerId: '',
-        addresses: []
+        addresses:[]
     },
     mounted() {
         console.log('view mounted');

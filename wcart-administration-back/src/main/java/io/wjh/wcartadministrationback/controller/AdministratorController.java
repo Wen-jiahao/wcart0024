@@ -192,17 +192,28 @@ public class AdministratorController {
     }
     //添加返回主键id
     @PostMapping("/create")
-    public Integer create(@RequestBody AdminisyratorCreateDTO adminisyratorCreateDTO){
+    public Integer create(@RequestBody AdminisyratorCreateDTO adminisyratorCreateDTO) throws ClientException {
         /*private String username;
         private  Byte status;
         private  String avatarUrl;
         private  String email;
         private String password;*/
         Administrator administrator = new Administrator();
-        administrator.setUsername(adminisyratorCreateDTO.getUsername());
+        String username = adminisyratorCreateDTO.getUsername();
+        Administrator administratorServiceByUsername = administratorService.getByUsername(username);
+        if(username.equals(administratorServiceByUsername.getUsername())){
+            throw new ClientException(ClientExceptionConstant.ADMINISTRATOR_USERNAME_ALREADY_EXIST_ERRCODE, ClientExceptionConstant.ADMINISTRATOR_USERNAME_ALREADY_EXIST_ERRMSG);
+        }
+
+        administrator.setUsername(username);
         administrator.setAvatarUrl(adminisyratorCreateDTO.getAvatarUrl());
         administrator.setRealName(adminisyratorCreateDTO.getRealname());
-        administrator.setEmail(adminisyratorCreateDTO.getEmail());
+        String email1 = adminisyratorCreateDTO.getEmail();
+        Administrator administratorServiceByEmail = administratorService.getByEmail(email1);
+        if (email1.equals(administratorServiceByEmail.getEmail())){
+            throw  new ClientException(ClientExceptionConstant.ADMINISTRATOR_EMAIL_ALREADY_EXIST_ERRCODE,ClientExceptionConstant.ADMINISTRATOR_EMAIL_ALREADY_EXIST_ERRMSG);
+        }
+        administrator.setEmail(email1);
         String password = BCrypt.withDefaults().hashToString(12, adminisyratorCreateDTO.getPassword().toCharArray());
         administrator.setEncryptedPassword(password);
         administrator.setStatus((byte) AdministratorStatus.Enable.ordinal());

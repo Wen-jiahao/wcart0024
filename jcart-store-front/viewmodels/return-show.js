@@ -18,7 +18,25 @@ var app = new Vue({
         createTimestamp:'',
         updateTimestamp:'',
         returcommentnId:'',
-        returnHistories:[]
+        returnHistories:[],
+        reasons:[
+            { value: 0, label: '发货过期' },
+            { value: 1, label: '订单错误' },
+            { value: 2, label: '收到错误商品' },
+            { value: 3, label: '质量问题' }
+        ],
+        statuses:[
+            { value: 0, label: '待处理' },
+            { value: 1, label: '待取货' },
+            { value: 2, label: '正在处理' },
+            { value: 3, label: '完成' },
+            { value: 4, label: '拒绝' }
+        ],
+        actions:[
+            { value: 0, label: '退货' },
+            { value: 1, label: '换货' },
+            { value: 2, label: '修理' }
+        ]
     },
     mounted(){
         var url = new URL(location.href);

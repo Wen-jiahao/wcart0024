@@ -52,7 +52,7 @@ public class AddressController {
     public Integer create(@RequestBody AddressCreateInDTO addressCreateInDTO,
                           @RequestAttribute Integer customerId){
         Address address = new Address();
-        address.setAddressId(customerId);
+        address.setCustomerId(customerId);
         address.setContent(addressCreateInDTO.getContent());
         address.setReceiverMobile(addressCreateInDTO.getReceiverMobile());
         address.setReceiverName(addressCreateInDTO.getReceiverName());

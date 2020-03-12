@@ -195,7 +195,7 @@
       </if>
 
       <if test="price != null and price!=''">
-        AND price = #{price}
+        AND price >= #{price}
       </if>
 
       <if test="productName != null and productName!=''">

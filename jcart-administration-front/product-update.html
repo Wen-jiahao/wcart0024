@@ -31,7 +31,7 @@
             <div slot="tip" class="el-upload__tip">只能上传jpg/png文件</div>
         </el-upload>
         上传后主图:<el-link type="primary">{{mainPicUrl}}</el-link>
-
+        <el-image style="width: 100px; height: 100px" :src="mainPicUrl" :fit="fit"></el-image>
         <el-upload  ref="uploadother" action="" :http-request="uploadOtherImage" :limit="9" accept="image/*"
         :on-change="handleOnOtherChange" :file-list="otherfileList" :auto-upload="false">
             <el-button slot="trigger" size="small" type="primary">选取其他文件</el-button>
@@ -43,6 +43,7 @@
         <div v-for="item in otherPicUrls">
             <el-link  type="primary">{{item}}</el-link>
             <br>
+            <el-image style="width: 100px; height: 100px" :src="item" :fit="fit" :preview-src-list="otherPicUrls"></el-image>
         </div>
         <el-button @click="handleCreateClick">默认按钮</el-button>
     </div>

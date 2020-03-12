@@ -86,7 +86,7 @@ var app = new Vue({
                     })
                     .catch(function (error) {
                         console.log(error);
-                        alert('上床失败');
+                        alert('上传失败');
                     });
             }); 
 
@@ -105,7 +105,7 @@ var app = new Vue({
                 rewordPoints: this.rewordPoints,
                 sortOrder: this.sortOrder,
                 description: this.description,
-                otherPicUrls: this.otherPicUrls
+                othertPicUrls: this.otherPicUrls
               })
               .then(function (response) {
                 console.log('创建成功');

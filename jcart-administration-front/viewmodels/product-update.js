@@ -15,7 +15,6 @@ var app = new Vue({
         selectedOtherPics: [],
         otherPicUrls: [],
         mainPicUrl: '',
-        othertPicUrls: [],
         status: '',
         statuses: [{
             value: 0,
@@ -93,10 +92,11 @@ var app = new Vue({
                         console.log(response);
                         var url = response.data;
                         app.otherPicUrls.push(url);
+                        alert('上传成功');
                     })
                     .catch(function (error) {
                         console.log(error);
-                        alert('上床失败');
+                        alert('上传失败');
                     });
             });
 

@@ -43,11 +43,20 @@
             </el-table-column>
             <el-table-column prop="productName" label="商品名称">
             </el-table-column>
-            <el-table-column prop="status" label="状态">
+            <el-table-column  label="状态">
+                <template slot-scope="scope">
+                   {{statuses[scope.row.status].label}}
+                </template>
             </el-table-column>
-            <el-table-column prop="createTime" label="申请日期">
+            <el-table-column  label="申请日期">
+                <template slot-scope="scope">
+                    {{(new Date(scope.row.createTime)).toLocaleString()}}
+                 </template>
             </el-table-column>
-            <el-table-column prop="updateTime" label="修改日期">
+            <el-table-column  label="修改日期">
+                    <template slot-scope="scope">
+                        {{(new Date(scope.row.updateTime)).toLocaleString()}}
+                    </template>
             </el-table-column>
         </el-table>
 

@@ -3,6 +3,15 @@ package io.wjh.wcartstoreback.dto.in;
 public class CustomerChangePwdInDTO {
     private String originPwd;
     private String newPwd;
+    private String reNewPwd;
+
+    public String getReNewPwd() {
+        return reNewPwd;
+    }
+
+    public void setReNewPwd(String reNewPwd) {
+        this.reNewPwd = reNewPwd;
+    }
 
     public String getOriginPwd() {
         return originPwd;

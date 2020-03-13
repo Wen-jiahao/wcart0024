@@ -25,8 +25,14 @@
         <el-table-column prop="realname" label="姓名">
         </el-table-column>
         <el-table-column prop="status" label="状态">
+          <template slot-scope="scope">
+            {{statuses[scope.row.status]}}
+         </template>
         </el-table-column>
         <el-table-column prop="createTimestamp" label="创建时间">
+          <template slot-scope="scope">
+            {{(new Date(scope.row.createTimestamp)).toLocaleString()}}
+         </template>
         </el-table-column>
         
     </el-table-column>

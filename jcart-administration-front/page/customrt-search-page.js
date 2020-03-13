@@ -102,7 +102,7 @@ Vue.component('customrt-search-page', {
                         status: this.selectedStatus
                     }
                 })
-                    .then(function (response) {
+                    .then((response)=> {
                         console.log(response);
                         this.pageInfo = response.data;
                         console.log(this.pageInfo);

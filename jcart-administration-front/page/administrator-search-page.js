@@ -76,7 +76,7 @@ Vue.component('jc-administrator-search-page', {
                     pageNum:this.pageNum
                 }
               })
-              .then(function (response) {
+              .then((response)=> {
                 console.log(response);
                 this.pageInfo=response.data;
               })

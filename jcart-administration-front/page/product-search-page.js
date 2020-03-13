@@ -43,6 +43,11 @@ Vue.component('jc-product-search-page', {
                 {{statuses[scope.row.status].label}}
             </template>
         </el-table-column>
+        <el-table-column label="操作">
+            <template slot-scope="scope">
+                <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            </template>
+        </el-table-column>
     </el-table>
     <el-pagination layout="prev, pager, next" :total="pageInfo.total" @current-change="handlePageChange">
     </el-pagination>
@@ -68,11 +73,15 @@ Vue.component('jc-product-search-page', {
             ]
         }
       },
-    mounted() {
+      mounted() {
         console.log('view mounted');
         this.searchProduct();
     },
     methods: {
+        handleEdit(index,row){
+            console.log(index,row);
+              location.href='product-update.html?productId='+row.productId;
+        },
 
         handleSearchClick() {
             console.log('searck click');

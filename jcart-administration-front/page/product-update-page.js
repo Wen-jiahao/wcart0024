@@ -1,7 +1,7 @@
 Vue.component('jc-product-update-page', {
    
     template: 
-    `    <div id="app">
+    `      <div id="app">
     <el-input v-model="productCode" placeholder="输入商品代码"></el-input>
     <el-input v-model="productName" placeholder="请输入商品名称"></el-input>
     <el-input v-model="price" placeholder="请输入价格"></el-input>
@@ -22,7 +22,7 @@ Vue.component('jc-product-update-page', {
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件</div>
     </el-upload>
     上传后主图:<el-link type="primary">{{mainPicUrl}}</el-link>
-    <el-image style="width: 100px; height: 100px" :src="mainPicUrl" :fit="fit"></el-image>
+    <el-image style="width: 100px; height: 100px" :src="mainPicUrl" fit="fill"></el-image>
     <el-upload  ref="uploadother" action="" :http-request="uploadOtherImage" :limit="9" accept="image/*"
     :on-change="handleOnOtherChange" :file-list="otherfileList" :auto-upload="false">
         <el-button slot="trigger" size="small" type="primary">选取其他文件</el-button>
@@ -34,7 +34,7 @@ Vue.component('jc-product-update-page', {
     <div v-for="item in otherPicUrls">
         <el-link  type="primary">{{item}}</el-link>
         <br>
-        <el-image style="width: 100px; height: 100px" :src="item" :fit="fit" :preview-src-list="otherPicUrls"></el-image>
+        <el-image style="width: 100px; height: 100px" :src="item" fit="fill" :preview-src-list="otherPicUrls"></el-image>
     </div>
     <el-button @click="handleCreateClick">默认按钮</el-button>
 </div>

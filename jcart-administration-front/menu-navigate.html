@@ -32,11 +32,13 @@
                 <jc-administrator-search-page v-if="selectMainPage == '4-5'"></jc-administrator-search-page>
                 <jc-return-search-page  v-if="selectMainPage == '3-4'"></jc-return-search-page>
                 <order-search-page v-if="selectMainPage == '3-3'"></order-search-page>
+                <jc-product-update-page v-if="selectMainPage == '1-6'"></jc-product-update-page>
             </el-main>
         </el-container>
     </el-container>
 </div>
 
+<script src="assets/vendor/tinymce/tinymce.min.js"></script>
 <script src="assets/js/axios.min.js"></script>
 <script src="assets/js/common.js"></script>
 <script src="assets/js/vue.js"></script>
@@ -48,6 +50,7 @@
 <script src="page/administrator-search-page.js"></script>
 <script src="page/return-search-page.js"></script>
 <script src="page/order-search-page.js"></script>
+<script src="page/product-update-page.js"></script>
 
 
 <script src="viewmodels/demmenu-navigateo.js"></script>

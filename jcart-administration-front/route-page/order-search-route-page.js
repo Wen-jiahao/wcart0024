@@ -1,4 +1,4 @@
-Vue.component('order-search-page', {
+const OrderSearchRoutePage  = { 
 
     template: `
     <div id="app">
@@ -123,4 +123,4 @@ Vue.component('order-search-page', {
         }
     }
 
-  })
+  }

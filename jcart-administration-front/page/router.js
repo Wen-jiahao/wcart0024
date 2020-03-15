@@ -1,20 +1,25 @@
 const routes = [
     { path: '/product/search', component: ProductSearchRoutePage },
+    { path: '/product/update/:productId', component: ProductUpdateRoutePage },
+
+
     { path: '/customer/search', component: CustomerSearchRoutePage },
     { path: '/customer/show/:customerId', component: CustomerShowRoutePage },
 
-    { path: '/product/update/:productId', component: ProductUpdateRoutePage },
+
     { path: '/order/search', component: OrderSearchRoutePage },
     { path: '/order/show/:orderId', component: OrderShowRoutePage },
     
 
     { path: '/return/search', component: returnSearchRoutePage },
+
+
     { path: '/administrator/search', component: AdministratorSearchRoutePage },
     { path: '/administrator/show/:administratorId', component: AdministratorshowRoutePage },
-    { path: 'administrator/create', component: AdministratorCreateRoutePage },
+    { path: '/administrator/create', component: AdministratorCreateRoutePage }
     
     
-    { path: '/product/update/:productId', component: ProductUpdateRoutePage }
+   
     
     
 

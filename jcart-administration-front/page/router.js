@@ -12,11 +12,14 @@ const routes = [
     
 
     { path: '/return/search', component: returnSearchRoutePage },
+    { path: '/return/show/:returnId', component: returnShowRoutePage },
+    
 
 
     { path: '/administrator/search', component: AdministratorSearchRoutePage },
     { path: '/administrator/show/:administratorId', component: AdministratorshowRoutePage },
     { path: '/administrator/create', component: AdministratorCreateRoutePage }
+
     
     
    

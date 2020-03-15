@@ -49,6 +49,12 @@ const returnSearchRoutePage  = {
                     {{(new Date(scope.row.updateTime)).toLocaleString()}}
                 </template>
         </el-table-column>
+
+        <el-table-column label="操作">
+        <template slot-scope="scope">
+            <el-button type="primary" size="mini" @click="handleShowClick(scope.$index, scope.row)">详情</el-button>
+        </template>
+    </el-table-column>
     </el-table>
 
     <el-pagination layout="prev, pager, next" :total="pageInfo.total" @current-change="handlePageChange">
@@ -82,6 +88,9 @@ const returnSearchRoutePage  = {
         this.searchReturn();
     },
     methods: {
+        handleShowClick(index,row){
+            this.$router.push('/return/show/' + row.returnId);
+        },
         handleSerachClick(){
             this.pageNum=1;
             this.searchReturn();

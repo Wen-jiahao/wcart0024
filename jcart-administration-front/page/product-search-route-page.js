@@ -1,5 +1,8 @@
 const ProductSearchRoutePage  = { 
-    template: `       <div id="app">
+
+    template: `       
+    <div id="app">
+    <el-button type="primary" @click="handleCreateClick">添加</el-button>
     <el-input v-model="productCode" placeholder="请输入商品代号"></el-input>
     <el-input v-model="productName" placeholder="请输入商品名称"></el-input>
     <el-input v-model="price" placeholder="请输入价格"></el-input>
@@ -77,7 +80,10 @@ methods: {
         console.log(index,row);
           location.href='product-update.html?productId='+row.productId;
     },
-
+    handleCreateClick(){
+        console.log('create click');
+        this.$router.push('/product/create');
+      },
     handleSearchClick() {
         console.log('searck click');
         this.pageNum = 1;

@@ -1,6 +1,8 @@
 const routes = [
     { path: '/product/search', component: ProductSearchRoutePage },
     { path: '/product/update/:productId', component: ProductUpdateRoutePage },
+    { path: '/product/create', component: ProductCreateRoutePage },
+    
 
 
     { path: '/customer/search', component: CustomerSearchRoutePage },

@@ -65,6 +65,10 @@ const AdministratorSearchRoutePage  = {
         this.getadministrators();
     },
     methods:{
+      handleEdit(index,row){
+        this.$router.push('/administrator/show/' + row.administratorId);
+    },
+     
         handlePageChange(val){
             console.log(val);
             this.pageNum=val;

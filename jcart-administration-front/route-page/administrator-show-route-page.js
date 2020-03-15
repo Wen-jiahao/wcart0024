@@ -2,6 +2,7 @@ const AdministratorshowRoutePage  = {
 
     template: `
     <div id="app">
+    
         <el-input v-model="username" placeholder="请输入用户名" readonly></el-input>
         <el-input v-model="realname" placeholder="请输入姓名"></el-input>
         <el-input v-model="email" placeholder="请输入邮箱"></el-input>

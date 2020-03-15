@@ -2,6 +2,7 @@ const AdministratorSearchRoutePage  = {
 
     template: `
     <div id="app">
+    <el-button type="primary" @click="handleCreateClick">添加</el-button>
     <el-button type="danger" @click="handleBatchDeleteClick">批量删除</el-button>
     <el-table :data="pageInfo.list" style="width: 100%"  @selection-change="handleSelectionChange">
         <el-table-column
@@ -65,6 +66,10 @@ const AdministratorSearchRoutePage  = {
         this.getadministrators();
     },
     methods:{
+      handleCreateClick(){
+        console.log('create click');
+        this.$router.push('/administrator/create');
+      },
       handleEdit(index,row){
         this.$router.push('/administrator/show/' + row.administratorId);
     },

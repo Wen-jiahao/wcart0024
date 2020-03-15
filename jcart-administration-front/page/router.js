@@ -3,7 +3,8 @@ const routes = [
     { path: '/customer/search', component: CustomerSearchRoutePage },
     { path: '/order/search', component: OrderSearchRoutePage },
     { path: '/return/search', component: returnSearchRoutePage },
-    { path: '/administrator/search', component: AdministratorSearchRoutePage }
+    { path: '/administrator/search', component: AdministratorSearchRoutePage },
+    { path: '/product/update/:productId', component: ProductUpdateRoutePage }
     
 
     

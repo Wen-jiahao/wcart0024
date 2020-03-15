@@ -1,56 +1,55 @@
 const ProductSearchRoutePage  = { 
-    template: `<div id="app">
-    <el-input v-model="productCode" placeholder="输入商品代码"></el-input>
-    <el-input v-model="returnId" placeholder="请输入退货Id"></el-input>
-    <el-input v-model="orderId" placeholder="请输入订单Id"></el-input>
-    <el-input v-model="customerName" placeholder="请输入客户姓名"></el-input>
+    template: `       <div id="app">
+    <el-input v-model="productCode" placeholder="请输入商品代号"></el-input>
     <el-input v-model="productName" placeholder="请输入商品名称"></el-input>
-    <el-select v-model="selectstatus" placeholder="请选择">
+    <el-input v-model="price" placeholder="请输入价格"></el-input>
+    <el-input v-model="stockQuantity" placeholder="请输入库存"></el-input>
+
+    <br>
+    <el-select v-model="selectedStatus" placeholder="请选择状态">
         <el-option v-for="item in statuses" :key="item.value" :label="item.label" :value="item.value">
         </el-option>
     </el-select>
     <br>
-    <el-date-picker v-model="startTime" type="date" placeholder="选择开始日期">
-    </el-date-picker>
-    <br>
-
-    <el-date-picker v-model="endTime" type="date" placeholder="选择结束日期">
-    </el-date-picker>
-    <br>
-
-    <el-button type="primary" @click="handleSerachClick">查询</el-button>
-    <el-button type="primary" @click="handleClearClick">清空调间</el-button>
+    <el-button type="primary" @click="handleSearchClick">搜索</el-button>
+    <el-button type="primary" @click="handleClearClick">清空条件</el-button>
 
     <el-table :data="pageInfo.list" style="width: 100%">
-        <el-table-column prop="returnId" label="退货Id">
-        </el-table-column>
-        <el-table-column prop="orderId" label="订单Id">
-        </el-table-column>
-        <el-table-column prop="customerName" label="客户姓名">
-        </el-table-column>
-        <el-table-column prop="productCode" label="商品代号">
+        <el-table-column  label="主图">
+            <template slot-scope="scope">
+                <el-image style="width: 100px; height: 100px" :src="scope.row.mainPicUrl" :fit="fit"></el-image>
+            </template>           
         </el-table-column>
         <el-table-column prop="productName" label="商品名称">
         </el-table-column>
-        <el-table-column  label="状态">
+        <el-table-column prop="productCode" label="商品编号">
+        </el-table-column>
+        <el-table-column  label="价格">
             <template slot-scope="scope">
-               {{statuses[scope.row.status].label}}
+                <s>{{scope.row.price}}</s><br>
+                {{(scope.row.price*scope.row.discount).toFixed(2)}}
+
             </template>
         </el-table-column>
-        <el-table-column  label="申请日期">
-            <template slot-scope="scope">
-                {{(new Date(scope.row.createTime)).toLocaleString()}}
-             </template>
+        <el-table-column prop="discount" label="打折">
         </el-table-column>
-        <el-table-column  label="修改日期">
-                <template slot-scope="scope">
-                    {{(new Date(scope.row.updateTime)).toLocaleString()}}
-                </template>
+        <el-table-column prop="stockQuantity" label="库存">
+        </el-table-column>
+        <el-table-column label="状态">
+            <template slot-scope="scope">
+                {{statuses[scope.row.status].label}}
+            </template>
+        </el-table-column>
+        <el-table-column label="操作">
+            <template slot-scope="scope">
+                <el-button size="mini" @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+            </template>
         </el-table-column>
     </el-table>
-
     <el-pagination layout="prev, pager, next" :total="pageInfo.total" @current-change="handlePageChange">
     </el-pagination>
+
+
 </div>` ,
 data() {
     return {
@@ -69,43 +68,39 @@ data() {
         ]
     }
   },
-mounted() {
+  mounted() {
     console.log('view mounted');
-    this.searchReturn();
+    this.searchProduct();
 },
 methods: {
-    handleSerachClick(){
-        this.pageNum=1;
-        this.searchReturn();
+    handleEdit(index,row){
+        console.log(index,row);
+          location.href='product-update.html?productId='+row.productId;
     },
-    handleClearClick(){
-        this.returnId = '';
-        this.orderId = '';
-        this.customerName = '';
-        this.productCode = '';
-        this.productName = '';
-        this.selectedStatus = '';
-        this.startTime = '';
-        this.endTime = '';
+
+    handleSearchClick() {
+        console.log('searck click');
+        this.pageNum = 1;
+        this.searchProduct();
+
     },
-    handlePageChange(val) {
-        console.log('page changed', val);
-        this.pageNum = val;
-        this.searchReturn();
+    handleClearClick() {
+            this.productName='',
+            this.productCode='',
+            this.price='',
+            this.selectedStatus='',
+            this.stockQuantity=''
     },
-   
-    searchReturn() {
-        axios.get('/return/search', {
+    searchProduct() {
+        console.log(111)
+        axios.get('/product/search', {
             params: {
                 pageNum: this.pageNum,
-                returnId: this.returnId,
-                orderId: this.orderId,
-                customerName: this.customerName,
-                productCode: this.productCode,
                 productName: this.productName,
-                status: this.selectstatus,
-                startTimestamp:this.startTime?this.startTime.getTime():'',
-                endTimestamp:this.endTime?this.endTime.getTime():'',
+                productCode: this.productCode,
+                price: this.price,
+                status: this.selectedStatus,
+                stockQuantity: this.stockQuantity
             }
         })
             .then((response)=> {
@@ -115,6 +110,12 @@ methods: {
             .catch(function (error) {
                 console.log(error);
             });
+    },
+    handlePageChange(val) {
+        console.log(val);
+        this.pageNum = val;
+        this.searchProduct();
     }
+
 }
 }

@@ -1,4 +1,5 @@
-Vue.component('jc-product-update-page', {
+
+    const ProductUpdateRoutePage = { 
    
     template: 
     `      <div id="app">
@@ -197,4 +198,4 @@ Vue.component('jc-product-update-page', {
         }
 
     }
-  })
+  }

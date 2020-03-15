@@ -1,4 +1,4 @@
-Vue.component('jc-administrator-search-page', {
+const AdministratorSearchRoutePage  = { 
 
     template: `
     <div id="app">
@@ -126,4 +126,4 @@ Vue.component('jc-administrator-search-page', {
     }
 
     
-  })
+  }

@@ -5,6 +5,9 @@ const routes = [
 
     { path: '/product/update/:productId', component: ProductUpdateRoutePage },
     { path: '/order/search', component: OrderSearchRoutePage },
+    { path: '/order/show/:orderId', component: OrderShowRoutePage },
+    
+
     { path: '/return/search', component: returnSearchRoutePage },
     { path: '/administrator/search', component: AdministratorSearchRoutePage },
     { path: '/administrator/show/:administratorId', component: AdministratorshowRoutePage },

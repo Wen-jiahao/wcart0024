@@ -1,0 +1,1 @@
+const Bar = { template: '<div>bar</div>' }

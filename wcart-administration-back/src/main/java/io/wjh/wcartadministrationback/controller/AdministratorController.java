@@ -11,12 +11,13 @@ import io.wjh.wcartadministrationback.enumeration.AdministratorStatus;
 import io.wjh.wcartadministrationback.exception.ClientException;
 import io.wjh.wcartadministrationback.po.Administrator;
 import io.wjh.wcartadministrationback.service.AdministratorService;
+import io.wjh.wcartadministrationback.util.EmailUtil;
 import io.wjh.wcartadministrationback.util.JWTUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import java.security.SecureRandom;
-import org.springframework.mail.javamail.JavaMailSender;
+
 import org.springframework.web.bind.annotation.*;
 
 
@@ -51,18 +52,20 @@ public class AdministratorController {
     private AdministratorService administratorService;
 
     @Autowired
+    private EmailUtil emailUtil;
+
+    @Autowired
     private JWTUtil jwtUtil;
    @Autowired
    private SecureRandom secureRandom;
-    @Autowired
-    private JavaMailSender mailSender;
 
-    @Value("${spring.mail.username}")
-    private String fromEmail;
+
+
 
     private Map<String,String> emailPwdRestMap=new HashMap<>();
 
-
+    @Value("${spring.mail.username}")
+    private String fromEmail;
     @GetMapping("/login")
     //创建
     public AdministratorLoginOutDTO  login(AdministratorLoginInDTO  administratorLoginInDTO) throws ClientException {
@@ -117,12 +120,7 @@ public class AdministratorController {
         //生成随机数据
         byte[] bytes = secureRandom.generateSeed(3);
         String hex = DatatypeConverter.printHexBinary(bytes);
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(fromEmail);
-        message.setTo(email);
-        message.setSubject("jcart管理端管理员密码重置");
-        message.setText(hex);
-        mailSender.send(message);
+        emailUtil.sendEmail(fromEmail,email,hex);
         emailPwdRestMap.put(email, hex);
     }
     @PostMapping("/resetPwd")

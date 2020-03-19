@@ -1,13 +1,26 @@
 var app = new Vue({
     el: '#app',
     data: {
-        email: ''
+        email: '',
+        loading:false
     },
     methods:{
+        validateEmail (email){
+            var reg = /^[A-Za-z0-9]+([_\.][A-Za-z0-9]+)*@([A-Za-z0-9\-]+\.)+[A-Za-z]{2,6}$/;
+            return reg.test(email);
+        },
         handleFindBackPwdClick(){
             console.log('find back pwd click');
+                if (this.validateEmail(this.email)) {
+                   alert('有效');
+                  
+                }else{
+                    alert('无效');                    
+                };
+            this.loading=true;
             this.getPwdRecord();
         },
+
         getPwdRecord(){
             axios.get('/administrator/getPwdResetCode', {
                 params: {
@@ -16,6 +29,7 @@ var app = new Vue({
             })
                 .then(function (response) {
                     console.log(response);
+                    app.loading=false;
                     alert('重置码已发送到邮箱');
                 })
                 .catch(function (error) {

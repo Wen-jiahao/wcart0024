@@ -2,7 +2,9 @@ var app = new Vue({
     el: '#app',
     data: {
         email: '',
-        loading:false
+        loading:false,
+        buttonEnabled:true,
+        counter:60
     },
     methods:{
         validateEmail (email){
@@ -18,6 +20,14 @@ var app = new Vue({
                     alert('无效');                    
                 };
             this.loading=true;
+            this.buttonEnabled=false;
+            this.counter=60;
+            setInterval(function(){
+                app.counter--;
+                if(app.counter<0){
+                    app.buttonEnabled=true;
+                }
+            },1000);
             this.getPwdRecord();
         },
 

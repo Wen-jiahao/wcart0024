@@ -13,6 +13,7 @@ import io.wjh.wcartadministrationback.po.Administrator;
 import io.wjh.wcartadministrationback.service.AdministratorService;
 import io.wjh.wcartadministrationback.util.EmailUtil;
 import io.wjh.wcartadministrationback.util.JWTUtil;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -58,6 +59,9 @@ public class AdministratorController {
     private JWTUtil jwtUtil;
    @Autowired
    private SecureRandom secureRandom;
+
+   @Autowired
+   private RocketMQTemplate rocketMQTemplate;
 
 
 

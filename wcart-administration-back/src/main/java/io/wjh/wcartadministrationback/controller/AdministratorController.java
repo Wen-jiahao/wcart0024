@@ -9,10 +9,12 @@ import io.wjh.wcartadministrationback.dto.out.AdministratorLoginOutDTO;
 import io.wjh.wcartadministrationback.dto.out.PageOutDTO;
 import io.wjh.wcartadministrationback.enumeration.AdministratorStatus;
 import io.wjh.wcartadministrationback.exception.ClientException;
+import io.wjh.wcartadministrationback.mq.EmailEvent;
 import io.wjh.wcartadministrationback.po.Administrator;
 import io.wjh.wcartadministrationback.service.AdministratorService;
 import io.wjh.wcartadministrationback.util.EmailUtil;
 import io.wjh.wcartadministrationback.util.JWTUtil;
+import org.apache.rocketmq.spring.core.RocketMQTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -59,8 +61,8 @@ public class AdministratorController {
    @Autowired
    private SecureRandom secureRandom;
 
-
-
+    @Autowired
+    private RocketMQTemplate rocketMQTemplate;
 
     private Map<String,String> emailPwdRestMap=new HashMap<>();
 
@@ -120,7 +122,12 @@ public class AdministratorController {
         //生成随机数据
         byte[] bytes = secureRandom.generateSeed(3);
         String hex = DatatypeConverter.printHexBinary(bytes);
-        emailUtil.sendEmail(fromEmail,email,hex);
+        /*emailUtil.sendEmail(fromEmail,email,hex);*/
+        EmailEvent emailEvent = new EmailEvent();
+        emailEvent.setEmail(email);
+        emailEvent.setFromEmail(fromEmail);
+        emailEvent.setHex(hex);
+        rocketMQTemplate.convertAndSend("SendPwdRestByEmail",emailEvent);
         emailPwdRestMap.put(email, hex);
     }
     @PostMapping("/resetPwd")
